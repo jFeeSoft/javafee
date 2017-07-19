@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/pages/templates/template.xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:define name="head-end">
+		<style type="text/css">
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+</style>
+	</ui:define>
+
+	<ui:define name="title">
+        #{msg['page.payment.title']}
+    </ui:define>
+
+	<ui:define name="description">
+        #{msg['page.payment.description']}
+    </ui:define>
+
+	<ui:define name="body">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+			<h:form>
+					<p:separator />
+
+                    <p:dataTable widgetVar="msgTable" var="message" value="#{messageView.messages}" rows="5"
+                                 rowKey="#{msg.id}" lazy="false" paginator="true"
+                                 filteredValue="#{messageView.filteredValue}"
+                                 paginatorPosition="bottom" selection="#{messageView.selectedMsg}"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {JumpToPageDropdown}"
+                                 currentPageReportTemplate="[ {startRecord} to {endRecord} of {totalRecords} ]"
+                                 rowsPerPageTemplate="5,10,15,20,30"
+                            >
+
+                        <p:ajax event="rowSelect" update="@(.ui-button)"/>
+                        <p:ajax event="rowUnselect" update="@(.ui-button)"/>
+
+
+                        <f:facet name="header">
+                            Znajdz wiadomość: <p:inputText id="inptId" value="#{messageView.id}"/>
+                            <p:spacer height="5"/>
+                            <p:commandButton id="brFind"
+                                             value="Find"
+                                             action="#{messageView.findMsgById(messageView.id)}"
+                                             process="@form"
+                                             update="@form"
+                                             styleClass="btn-flat bg-black"
+                                             partialSubmit="true"/>
+                        </f:facet>
+                        <p:column selectionMode="multiple" width="5%" styleClass="align-center"/>
+
+                        <p:column headerText="Od" sortBy="#{message.from}" filterBy="#{message.from}">
+                            <f:facet name="filter">
+                                <p:inputText >
+                                    <p:ajax process="@this" update="@none" />
+                                </p:inputText>
+                            </f:facet>
+                            <h:outputText value="#{message.from}" />
+                        </p:column>
+                        <p:column headerText="Temat" sortBy="#{message.topic}" filterBy="#{message.topic}">
+                            <f:facet name="filter">
+                                <p:inputText >
+                                    <p:ajax process="@this" update="@none" />
+                                </p:inputText>
+                            </f:facet>
+                            #{message.topic}
+                        </p:column>
+                        <p:column headerText="Data" sortBy="#{message.date}" filterBy="#{message.date}">
+                            <f:facet name="filter">
+                                <p:spinner >
+                                    <p:ajax process="@this" update="@none" />
+                                </p:spinner>
+                            </f:facet>
+                            #{message.date}
+                        </p:column>
+                        <p:column>
+                        	<p:commandButton update="@form" icon="ui-icon-search" title="View">
+                            	<f:setPropertyActionListener value="#{id}" target="#{messageView.id}" />
+                            </p:commandButton>
+						</p:column>
+                    </p:dataTable>
+
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+
+
+</ui:composition>
