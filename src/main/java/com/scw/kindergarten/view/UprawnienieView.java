@@ -13,7 +13,7 @@ import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.scw.kindergarten.model.Uprawnienie;
+import com.scw.kindergarten.model.Permission;
 import com.scw.kindergarten.repository.UprawnienieRepository;
 import com.scw.kindergarten.view.utils.Utils;
 
@@ -36,10 +36,10 @@ public class UprawnienieView implements Serializable
   @PostConstruct
   public void init()
   {
-    Iterable<Uprawnienie> uprawnienia = uprawnienieRepository.findAll();
+    Iterable<Permission> uprawnienia = uprawnienieRepository.findAll();
 
-    root = new DefaultTreeNode(new Uprawnienie(),null);
-    for (Uprawnienie uprawnienie : uprawnienia)
+    root = new DefaultTreeNode(new Permission(),null);
+    for (Permission uprawnienie : uprawnienia)
     {
       new DefaultTreeNode(uprawnienie,root);
     }

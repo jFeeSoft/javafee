@@ -13,9 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.scw.kindergarten.model.Rola;
-import com.scw.kindergarten.model.Uprawnienie;
-import com.scw.kindergarten.model.Uzytkownik;
+import com.scw.kindergarten.model.Permission;
+import com.scw.kindergarten.model.Role;
+import com.scw.kindergarten.model.SystemUser;
 import com.scw.kindergarten.repository.UzytkownikRepository;
 
 @Service
@@ -29,28 +29,24 @@ public class AuthUserDetailsService implements UserDetailsService {
 		boolean accountNonExpired = true;
 		boolean credentialsNonExpired = true;
 		boolean accountNonLocked = true;
-		Uzytkownik uzytkownik = uzytkownikRepository.findByEmail(userName);
+		SystemUser uzytkownik = uzytkownikRepository.findByEmail(userName);
 
-		User userdetails = new User(uzytkownik.getNazwisko(), uzytkownik.getHaslo(), uzytkownik.getOdblokowany(),
-				accountNonExpired, credentialsNonExpired, accountNonLocked, getAuthorities(uzytkownik.getRola()));
+		User userdetails = new User(uzytkownik.getSurname(), uzytkownik.getPassword(), uzytkownik.getIsActive(),
+				accountNonExpired, credentialsNonExpired, accountNonLocked, getAuthorities(uzytkownik.getRoles()));
 
 		return userdetails;
 	}
 
-	private Collection<? extends GrantedAuthority> getAuthorities(Collection<Rola> role) {
+	private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> role) {
 		return getGrantedAuthorities(getPrivileges(role));
 	}
 
-	private List<String> getPrivileges(Collection<Rola> role) {
+	private List<String> getPrivileges(Collection<Role> roles) {
 
 		List<String> privileges = new ArrayList<>();
-		List<Uprawnienie> collection = new ArrayList<>();
-		for (Rola rola : role) {
-			collection.addAll(rola.getUprawnienie());
-		}
-		for (Uprawnienie item : collection) {
-			privileges.add(item.getNazwaUprawnienia());
-		}
+		List<Permission> collection = new ArrayList<>();
+		roles.forEach(role -> collection.addAll(role.getPermissions()));
+		collection.forEach(permission -> privileges.add(permission.getName()));
 		return privileges;
 	}
 
