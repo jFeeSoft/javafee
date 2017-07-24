@@ -17,14 +17,14 @@ import javax.persistence.Table;
 public class Meal {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_meal")
-	@Column(name = "meal_id", unique = true, nullable = false, insertable = true, updatable = true)
+	@Column(name = "meal_id")
 	private Integer id;
 
-	@Column(name = "description", unique = false, nullable = true, insertable = true, updatable = true, length = 256)
+	@Column(name = "description", length = 256)
 	private String description;
 
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
-	@JoinColumn(name = "meal_type_id", unique = false, nullable = true, insertable = true, updatable = true)
+	@JoinColumn(name = "meal_type_id")
 	private MealType type;
 
 	public Integer getId() {

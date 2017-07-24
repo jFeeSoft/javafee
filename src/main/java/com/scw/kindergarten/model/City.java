@@ -14,13 +14,13 @@ import javax.persistence.Table;
 public class City {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_city")
-	@Column(name = "city_id", unique = true, nullable = false, insertable = true, updatable = true)
+	@Column(name = "city_id")
 	private Integer id;
 
-	@Column(name = "name", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "name", length = 64)
 	private String name;
 
-	@Column(name = "postal_code", unique = false, nullable = true, insertable = true, updatable = true, length = 6)
+	@Column(name = "postal_code", length = 6)
 	private String postalCode;
 
 	public Integer getId() {

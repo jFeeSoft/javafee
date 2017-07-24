@@ -20,16 +20,16 @@ import javax.persistence.Table;
 public class MessageGroup {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_message_group")
-	@Column(name = "message_group_id", unique = true, nullable = false, insertable = true, updatable = true)
+	@Column(name = "message_group_id")
 	private Integer id;
 
-	@Column(name = "name", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "name", nullable = false, length = 64)
 	private String name;
 
-	@Column(name = "description", unique = false, nullable = true, insertable = true, updatable = true, length = 256)
+	@Column(name = "description", length = 256)
 	private String description;
 
-	@Column(name = "is_active", unique = false, nullable = true, insertable = true, updatable = true)
+	@Column(name = "is_active")
 	private Boolean isActive;
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "system_user")

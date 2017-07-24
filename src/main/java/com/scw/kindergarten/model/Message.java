@@ -20,36 +20,36 @@ import javax.persistence.TemporalType;
 public class Message {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_message")
-	@Column(name = "message_id", unique = true, nullable = false, insertable = true, updatable = true)
+	@Column(name = "message_id")
 	private Integer id;
 	
 	@OneToOne
 	@JoinColumn(name = "system_user_id")
 	private SystemUser sender;
 	
-	@Column(name = "title", unique = false, nullable = true, insertable = true, updatable = true, length = 1024)
+	@Column(name = "title", length = 64)
 	private String title;
 	
-	@Column(name = "content", unique = false, nullable = true, insertable = true, updatable = true, length = 1024)
+	@Column(name = "content", length = 1024)
 	private String content;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "send_date", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "send_date", nullable = false, length = 64)
 	private Date sendDate;
 	
-	@Column(name = "status", unique = false, nullable = false, insertable = true, updatable = true, length = 2)
+	@Column(name = "status", nullable = false, length = 2)
 	private Integer status;
 	
-	@Column(name = "is_priority", unique = false, nullable = true, insertable = true, updatable = true)
+	@Column(name = "is_priority")
 	private Boolean isPriority;
 
-	@Column(name = "is_send", unique = false, nullable = true, insertable = true, updatable = true)
+	@Column(name = "is_send", nullable = false)
 	private Boolean isSend;
 	
-	@Column(name = "is_read", unique = false, nullable = true, insertable = true, updatable = true)
+	@Column(name = "is_read")
 	private Boolean isRead;
 	
-	@Column(name = "send_attempt_count", unique = false, nullable = false, insertable = true, updatable = true, length = 2)
+	@Column(name = "send_attempt_count", length = 2)
 	private Integer sendAttemptCount;
 
 	public Integer getId() {

@@ -19,26 +19,26 @@ import javax.persistence.UniqueConstraint;
 public class SystemData {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_system_data")
-	@Column(name = "system_data_id", unique = true, nullable = false, insertable = true, updatable = true)
+	@Column(name = "system_data_id")
 	private Integer id;
 
-	@Column(name = "name", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "name", length = 64)
 	private String name;
 
-	@Column(name = "version", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "version", length = 64)
 	private String version;
 
-	@Column(name = "build_number", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "build_number", length = 64)
 	private String buildNumber;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "installation_date", unique = false, nullable = true, insertable = true, updatable = true, length = 13)
+	@Column(name = "installation_date", length = 13)
 	private Date installationDate;
 
-	@Column(name = "has_license", unique = false, nullable = false, insertable = true, updatable = true)
+	@Column(name = "has_license")
 	private Boolean hasLicense = false;
 
-	@Column(name = "license_number", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "license_number", length = 64)
 	private String licenseNumber;
 
 	public Integer getId() {

@@ -25,18 +25,18 @@ import javax.persistence.TemporalType;
 public class Child {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_system_user")
-	@Column(name = "child_id", unique = true, nullable = false, insertable = true, updatable = true)
+	@Column(name = "child_id")
 	private Integer id;
 
-	@Column(name = "first_name", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "first_name", length = 64)
 	private String fisrstName;
-	
+
 	@Column(name = "second_name", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
 	private String secondName;
 
 	@Column(name = "surname", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
 	private String surname;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "birth_date", unique = false, nullable = true, insertable = true, updatable = true, length = 13)
 	private Date birthDate;
@@ -61,8 +61,7 @@ public class Child {
 			joinColumns = @JoinColumn(name = "child_id"), //
 			inverseJoinColumns = @JoinColumn(name = "group_id"))
 	private Set<Group> groups = new HashSet<>(0);
-	
-	//TODO Accept
+
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	@JoinTable(name = "child_event", //
 			joinColumns = @JoinColumn(name = "child_id"), //

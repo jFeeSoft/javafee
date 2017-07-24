@@ -14,6 +14,14 @@ import javax.persistence.Table;
 public class Calendar {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_calendar")
-	@Column(name = "calendar_id", unique = true, nullable = false, insertable = true, updatable = true)
+	@Column(name = "calendar_id")
 	private Integer id;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }

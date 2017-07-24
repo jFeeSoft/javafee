@@ -18,7 +18,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "role", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Role {
 	@Id
-	@Column(name = "name", unique = true, nullable = false, insertable = true, updatable = true, length = 64)
+	@Column(name = "name", length = 64)
 	private String name;
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "system_user")

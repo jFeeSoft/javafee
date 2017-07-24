@@ -22,20 +22,20 @@ import javax.persistence.Table;
 public class Group {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_group")
-	@Column(name = "group_id", unique = true, nullable = false)
+	@Column(name = "group_id")
 	private Integer id;
 
-	@Column(name = "name", unique = false, nullable = false, insertable = true, updatable = true, length = 64)
-	private String nazwa;
+	@Column(name = "name", nullable = false, length = 64)
+	private String name;
 
-	@Column(name = "description", unique = false, nullable = true, insertable = true, updatable = true, length = 256)
+	@Column(name = "description", length = 256)
 	private String description;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "group")
 	private Set<Child> child = new HashSet<Child>(0);
 
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
-	@JoinColumn(name = "group_type_id", unique = false, nullable = true, insertable = true, updatable = true)
+	@JoinColumn(name = "group_type_id")
 	private GroupType type;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -50,12 +50,12 @@ public class Group {
 		this.id = id;
 	}
 
-	public String getNazwa() {
-		return nazwa;
+	public String getName() {
+		return name;
 	}
 
-	public void setNazwa(String nazwa) {
-		this.nazwa = nazwa;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {

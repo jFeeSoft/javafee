@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class MessageRecipient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_message_recipient")
-	@Column(name = "message_recipient_id", unique = true, nullable = false, insertable = true, updatable = true)
+	@Column(name = "message_recipient_id")
 	private Integer id;
 
 	@OneToOne

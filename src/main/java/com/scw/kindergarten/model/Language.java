@@ -14,10 +14,10 @@ import javax.persistence.Table;
 public class Language {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_language")
-	@Column(name = "language_id", unique = true, nullable = false, insertable = true, updatable = true)
+	@Column(name = "language_id")
 	private Integer id;
 
-	@Column(name = "name", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "name", unique = true, nullable = false, length = 64)
 	private String name;
 
 	public Integer getId() {

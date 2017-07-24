@@ -14,14 +14,14 @@ import javax.persistence.Table;
 public class Permission {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_permission")
-	@Column(name = "permission_id", unique = false, nullable = false, insertable = true, updatable = true)
+	@Column(name = "permission_id")
 	private Integer id;
 
-	@Column(name = "name", unique = false, nullable = false, insertable = true, updatable = true, length = 64)
+	@Column(name = "name", nullable = false, length = 64)
 	private String name;
 
 	// TODO Association
-	@Column(name = "component", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "component", length = 64)
 	private String component;
 
 	public Integer getId() {

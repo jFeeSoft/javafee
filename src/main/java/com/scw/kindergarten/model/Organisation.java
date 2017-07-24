@@ -20,29 +20,29 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "organisation")
-@SequenceGenerator(name = "seq_organisation", sequenceName = "seq_organisation", allocationSize = 1)
+@SequenceGenerator(name = "seq_organisation", sequenceName = "seq_organisation", initialValue = 1, allocationSize = 1)
 public class Organisation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_organisation")
-	@Column(name = "organisation_id", unique = true, nullable = false)
+	@Column(name = "organisation_id")
 	private Integer id;
-	
-	@Column(name = "name", unique = false, nullable = false, insertable = true, updatable = true, length = 64)
+
+	@Column(name = "name", nullable = false, length = 64)
 	private String name;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id")
 	private Address address;
-	
-	@Column(name = "nip_number", unique = false, nullable = false, insertable = true, updatable = true, length = 16)
+
+	@Column(name = "nip_number", nullable = false, length = 16)
 	private String nip;
-	
+
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "child")
 	private Set<Child> children = new HashSet<>(0);
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "organisation")
 	private Set<Group> groups = new HashSet<Group>(0);
-	
+
 	@OneToOne
 	@JoinColumn(name = "system_data_id")
 	private SystemData systemData;

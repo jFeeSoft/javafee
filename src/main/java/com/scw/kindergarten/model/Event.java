@@ -23,23 +23,71 @@ import javax.persistence.TemporalType;
 public class Event {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_event")
-	@Column(name = "event_id", unique = true, nullable = false, insertable = true, updatable = true)
+	@Column(name = "event_id")
 	private Integer id;
-	
-	@Column(name = "name", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+
+	@Column(name = "name", length = 64)
 	private String name;
-	
-	@Column(name = "description", unique = false, nullable = true, insertable = true, updatable = true, length = 256)
+
+	@Column(name = "description", length = 256)
 	private String description;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "begin_date", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "begin_date", length = 64)
 	private Date beginDate;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "end_date", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "end_date", length = 64)
 	private Date endDate;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "event")
 	private Set<Child> child = new HashSet<Child>(0);
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Set<Child> getChild() {
+		return child;
+	}
+
+	public void setChild(Set<Child> child) {
+		this.child = child;
+	}
 }

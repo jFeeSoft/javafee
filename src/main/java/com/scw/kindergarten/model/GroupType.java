@@ -14,13 +14,13 @@ import javax.persistence.Table;
 public class GroupType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_group_type")
-	@Column(name = "group_type_id", unique = true, nullable = false)
+	@Column(name = "group_type_id")
 	private Integer id;
 
-	@Column(name = "name", unique = false, nullable = false, insertable = true, updatable = true, length = 64)
+	@Column(name = "name", nullable = false, length = 64)
 	private String name;
 
-	@Column(name = "description", unique = false, nullable = true, insertable = true, updatable = true, length = 256)
+	@Column(name = "description", length = 256)
 	private String description;
 
 	public Integer getId() {

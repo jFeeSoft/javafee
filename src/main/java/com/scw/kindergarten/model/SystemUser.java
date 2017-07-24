@@ -26,61 +26,61 @@ import javax.persistence.TemporalType;
 public class SystemUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_system_user")
-	@Column(name = "system_user_id", unique = true, nullable = false, insertable = true, updatable = true)
+	@Column(name = "system_user_id")
 	private Integer id;
 
-	@Column(name = "password", unique = false, nullable = false, insertable = true, updatable = true, length = 64)
+	@Column(name = "password", nullable = false, length = 64)
 	private String password;
 
-	@Column(name = "password_attempt_count", unique = false, nullable = false, insertable = true, updatable = true, length = 2)
+	@Column(name = "password_attempt_count", length = 2)
 	private Integer passwordAttemptCount;
 
-	@Column(name = "first_name", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "first_name", length = 64)
 	private String fisrstName;
 
-	@Column(name = "second_name", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "second_name", length = 64)
 	private String secondName;
 
-	@Column(name = "surname", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "surname", length = 64)
 	private String surname;
 
-	@Column(name = "email_address", unique = true, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "email_address", unique = true, nullable = false, length = 64)
 	private String emailAddress;
 
-	@Column(name = "phone_number", unique = true, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "phone_number", length = 64)
 	private String phoneNumber;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "birth_date", unique = false, nullable = true, insertable = true, updatable = true, length = 13)
+	@Column(name = "birth_date", length = 13)
 	private Date birthDate;
 
-	@Column(name = "sex", unique = false, nullable = true, insertable = true, updatable = true, length = 1)
+	@Column(name = "sex", length = 1)
 	private Character sex;
 
-	@Column(name = "pesel", unique = false, nullable = true, insertable = true, updatable = true, length = 11)
+	@Column(name = "pesel", unique = true, length = 11)
 	private String peselNumber;
 
-	@Column(name = "document_number", unique = false, nullable = true, insertable = true, updatable = true, length = 20)
+	@Column(name = "document_number", unique = true, length = 20)
 	private String documentNumber;
 
-	@Column(name = "registered", unique = false, nullable = true, insertable = true, updatable = true)
+	@Column(name = "registered")
 	private Boolean registered;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id")
 	private Address address;
 
-	@Column(name = "description", unique = false, nullable = true, insertable = true, updatable = true, length = 256)
+	@Column(name = "description", length = 256)
 	private String description;
 
-	@Column(name = "is_active", unique = false, nullable = true, insertable = true, updatable = true)
+	@Column(name = "is_active", nullable = false)
 	private Boolean isActive;
 
-	@Column(name = "is_blocked", unique = false, nullable = true, insertable = true, updatable = true)
+	@Column(name = "is_blocked")
 	private Boolean isBlocked;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "registration_date", unique = false, nullable = true, insertable = true, updatable = true, length = 64)
+	@Column(name = "registration_date", length = 64)
 	private Date registrationDate;
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)

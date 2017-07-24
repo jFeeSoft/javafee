@@ -22,16 +22,16 @@ import javax.persistence.Table;
 public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_address")
-	@Column(name = "address_id", unique = true, nullable = false, insertable = true, updatable = true)
+	@Column(name = "address_id")
 	private Integer id;
 	
-	@Column(name = "street", unique = false, nullable = true, insertable = true, updatable = true, length = 128)
+	@Column(name = "street", length = 128)
 	private String street;
 	
-	@Column(name = "house_number", unique = false, nullable = true, insertable = true, updatable = true, length = 16)
+	@Column(name = "house_number", length = 16)
 	private String houseNumber;
 	
-	@Column(name = "local_number", unique = false, nullable = true, insertable = true, updatable = true, length = 16)
+	@Column(name = "local_number", length = 16)
 	private String localNumber;
 	
 	@OneToOne
@@ -79,5 +79,13 @@ public class Address {
 
 	public void setCity(City city) {
 		this.city = city;
+	}
+
+	public Set<SystemUser> getSystemUsers() {
+		return systemUsers;
+	}
+
+	public void setSystemUsers(Set<SystemUser> systemUsers) {
+		this.systemUsers = systemUsers;
 	}
 }
