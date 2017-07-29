@@ -5,10 +5,10 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.scw.kindergarten.model.Uzytkownik;
+import com.scw.kindergarten.model.SystemUser;
 
 @Repository
-public interface UzytkownikRepository extends CrudRepository<Uzytkownik, String> {
+public interface UzytkownikRepository extends CrudRepository<SystemUser, String> {
 	@Query(value = "SELECT user FROM Uzytkownik user LEFT JOIN FETCH user.rola rola LEFT JOIN FETCH rola.uprawnienie WHERE user.email = :email ")
-	Uzytkownik findByEmail(@Param("email") String email);
+	SystemUser findByEmail(@Param("email") String email);
 }
