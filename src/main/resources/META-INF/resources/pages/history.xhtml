@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/pages/templates/template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+        <ui:define name="head-end">
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+
+        </style>
+    </ui:define>
+
+    <ui:define name="title">
+        #{msg['title.history']}
+    </ui:define>
+
+    <ui:define name="description">
+        #{msg['title.history.description']}
+    </ui:define>
+
+    <ui:define name="body">
+    	<h:form id="historyForm">
+
+			<!-- p:commandButton value="#{msg['button.lang']}" id="nonAjax"
+				actionListener="#{jezyk.buttonAction}" ajax="false"/-->
+
+<div class="box box-primary">
+				<div class="box-header with-border">
+			<p:dataTable id="historiaTable" var="historia" value="#{historiaView.historiaLazyModel}"
+				paginator="true" rows="25" widgetVar="historyTable"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="25,50,100" lazy="true" draggableColumns="true" resizableColumns="true">
+				<f:facet name="header">
+					<p:outputPanel>
+					<p:spacer height="4" />
+ 			        <p:commandButton id="toggler" type="button" value="#{msg['button.columns']}" style="float:right" styleClass="btn-primary" icon="fa fa-calculator" />
+        			<p:columnToggler datasource="historiaTable" trigger="toggler" />
+        			<p:spacer height="4" />
+        			</p:outputPanel>
+    			</f:facet>
+				<p:column headerText="#{msg['table.history.header.login']}" sortBy="#{smsUzytkownik.puUzytkownik.login}" filterBy="#{smsUzytkownik.puUzytkownik.login}">
+					<h:outputText value="#{historia.smsUzytkownik.puUzytkownik.login}" />
+					<p:spacer height="2" />
+				</p:column>
+				<p:column headerText="#{msg['table.history.header.name']}" sortBy="#{smsUzytkownik.puUzytkownik.nazwa}" filterBy="#{smsUzytkownik.puUzytkownik.nazwa}">
+					<h:outputText value="#{historia.smsUzytkownik.puUzytkownik.nazwa}" />
+				</p:column>
+				<p:column headerText="#{msg['table.history.header.code']}" sortBy="#{smsUzytkownik.puUzytkownik.kodJednostki}" filterBy="#{smsUzytkownik.puUzytkownik.kodJednostki}">
+					<h:outputText value="#{historia.smsUzytkownik.puUzytkownik.kodJednostki}" />
+				</p:column>
+				<p:column headerText="#{msg['table.history.header.user']}" sortBy="#{this.historia.uzytkownikSystemu}" filterBy="#{this.historia.uzytkownikSystemu}">
+					<h:outputText value="#{historia.uzytkownikSystemu}" />
+				</p:column>
+				<p:column headerText="#{msg['table.history.header.date']}" sortBy="#{this.historia.data}" filterBy="#{this.historia.data}">
+					<f:facet name="filter">
+                		<p:calendar  pattern="dd.MM.yyyy HH:mm:ss">
+        					<p:ajax event="dateSelect"  oncomplete="PF('historyTable').filter()"/>
+    					</p:calendar>
+            		</f:facet>
+					<h:outputText value="#{historia.data}">
+						<f:convertDateTime type="both" pattern="dd.MM.yyyy HH:mm:ss" timeZone="Europe/Warsaw"/>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="#{msg['table.history.header.telephone']}" sortBy="#{this.historia.nrTelefonu}" filterBy="#{this.historia.nrTelefonu}">
+					<h:outputText value="#{historia.nrTelefonu}" />
+				</p:column>
+				<p:column headerText="#{msg['table.history.header.status']}" sortBy="#{historia.smsStatus.skrocOpis}" filterBy="#{historia.smsStatus.skrocOpis}">
+					<h:outputText value="#{historia.smsStatus.skrocOpis}"/>
+				</p:column>
+				<p:column headerText="#{msg['table.history.header.cost']}">
+					<h:outputText value="#{historia.saldoPrzed - historia.saldoPo}" />
+				</p:column>
+				<p:column headerText="#{msg['table.history.header.system']}" sortBy="#{this.historia.kodSystemuMac}" filterBy="#{this.historia.kodSystemuMac}">
+					<h:outputText value="#{historia.kodSystemuMac}" />
+				</p:column>
+				<p:column headerText="#{msg['button.details']}" style="text-align: center">
+             		<p:commandButton styleClass="btn-primary" update="content-form:historyForm:smsDet" oncomplete="PF('smsDetail').show()" icon="ui-icon-search" title="#{msg['table.history.detail.header']}">
+                		<f:setPropertyActionListener value="#{historia}" target="#{historiaView.selectedMsg}" />
+            		</p:commandButton>
+        		</p:column>
+				<!-- p:column filterBy="#{historia.trescWiadomosc}" headerText="Treść" filterMatchMode="lte">
+            		<f:facet name="filter">
+                		<p:calendar  pattern="dd/MM/yyyy">
+        					<p:ajax event="dateSelect"  oncomplete="PF('seasonDataTable').filter()"/>
+    					</p:calendar>
+    					<p:calendar  pattern="dd/MM/yyyy">
+        					<p:ajax event="dateSelect"  oncomplete="PF('seasonDataTable').filter()"/>
+    					</p:calendar>
+            		</f:facet>
+            		<h:outputText value="#{historia.trescWiadomosc}" />
+        		</p:column-->
+			</p:dataTable>
+			
+			</div>
+			</div>
+			<p:dialog header="#{msg['table.history.detail.header']}" widgetVar="smsDetail" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			
+        		<p:outputPanel id="smsDet">
+  <div class="ui-g ui-fluid">
+  
+  <p:panelGrid columns="2" layout="grid">
+  			  	<p:outputLabel for="login" value="#{msg['table.history.detail.login']}" />
+  			  	
+                <p:inputText id="login" readonly="true" value="#{historiaView.selectedMsg.smsUzytkownik.puUzytkownik.login}" />
+            
+                	                            
+               
+                <p:outputLabel for="name" value="#{msg['table.history.detail.name']}"/>
+                
+                <p:inputText id="name" readonly="true" value="#{historiaView.selectedMsg.smsUzytkownik.puUzytkownik.nazwa}"/>
+            
+                
+                <p:outputLabel for="user" value="#{msg['table.history.detail.user']}"/>
+              
+                <p:inputText id="user" readonly="true" value="#{historiaView.selectedMsg.uzytkownikSystemu}"/>
+             
+                
+                <p:outputLabel for="smsapiid" value="#{msg['table.history.detail.smsapiid']}"/>
+             
+                <p:inputText id="smsapiid" readonly="true" value="#{historiaView.selectedMsg.idWyslanejWiadomosci}"/>
+             
+                
+                <p:outputLabel for="balancefrom" value="#{msg['table.history.detail.balancefrom']}"/>
+          
+                <p:inputText id="balancefrom" readonly="true" value="#{historiaView.selectedMsg.saldoPrzed}"/>
+              
+                
+                <p:outputLabel for="balanceAfter" value="#{msg['table.history.detail.balanceAfter']}"/>
+            
+                <p:inputText id="balanceAfter" readonly="true" value="#{historiaView.selectedMsg.saldoPo}"/>
+               
+                
+                <p:outputLabel for="date" value="#{msg['table.history.detail.date']}"/>
+            
+                <p:inputText id="date" readonly="true" value="#{historiaView.selectedMsg.data}">
+                	<f:convertDateTime type="both" pattern="dd.MM.yyyy HH:mm:ss" timeZone="Europe/Warsaw"/>
+                </p:inputText>
+                
+                
+                <p:outputLabel for="telephone" value="#{msg['table.history.detail.telephone']}"/>
+                <p:inputText id="telephone" readonly="true" value="#{historiaView.selectedMsg.nrTelefonu}"/>
+               
+                
+                <p:outputLabel for="content" value="#{msg['table.history.detail.content']}"/>
+                <p:inputTextarea id="content" readonly="true" value="#{historiaView.selectedMsg.trescWiadomosc}"/>
+               
+                
+                <p:outputLabel for="status" value="#{msg['table.history.detail.status']}"/>
+                <p:inputText id="status" readonly="true" value="#{historiaView.selectedMsg.smsStatus.id}"/>
+                
+                </p:panelGrid>
+            
+            </div>
+        </p:outputPanel>
+    </p:dialog>
+</h:form>
+    </ui:define>
+
+
+</ui:composition>
