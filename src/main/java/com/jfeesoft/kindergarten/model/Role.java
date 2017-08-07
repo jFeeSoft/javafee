@@ -21,7 +21,7 @@ public class Role {
 	@Column(name = "name", length = 64)
 	private String name;
 
-	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "system_user")
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "roles")
 	private Set<SystemUser> systemUser = new HashSet<>(0);
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)

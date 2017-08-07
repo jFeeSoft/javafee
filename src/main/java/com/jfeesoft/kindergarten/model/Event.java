@@ -40,7 +40,7 @@ public class Event {
 	@Column(name = "end_date", length = 64)
 	private Date endDate;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "event")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "events")
 	private Set<Child> child = new HashSet<Child>(0);
 
 	public Integer getId() {

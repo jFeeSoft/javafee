@@ -37,7 +37,7 @@ public class Organisation {
 	@Column(name = "nip_number", nullable = false, length = 16)
 	private String nip;
 
-	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "child")
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "organisations")
 	private Set<Child> children = new HashSet<>(0);
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "organisation")

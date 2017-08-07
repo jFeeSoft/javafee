@@ -32,10 +32,10 @@ public class MessageGroup {
 	@Column(name = "is_active")
 	private Boolean isActive;
 
-	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "system_user")
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "messageGroups")
 	private Set<SystemUser> systemUser = new HashSet<>(0);
 
-	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "message_recipient")
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "messageGroup")
 	private Set<MessageRecipient> messageRecipient = new HashSet<>(0);
 
 	public Integer getId() {

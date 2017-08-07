@@ -31,7 +31,7 @@ public class Group {
 	@Column(name = "description", length = 256)
 	private String description;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "group")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "groups")
 	private Set<Child> child = new HashSet<Child>(0);
 
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)

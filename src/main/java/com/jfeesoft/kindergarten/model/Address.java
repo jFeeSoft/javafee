@@ -38,7 +38,7 @@ public class Address {
 	@JoinColumn(name = "city_id")
 	private City city;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "system_user")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "address")
 	private Set<SystemUser> systemUsers = new HashSet<>(0);
 
 	public Integer getId() {

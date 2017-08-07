@@ -3,13 +3,16 @@ package com.jfeesoft.kindergarten.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -27,6 +30,7 @@ public class MessageRecipient {
 	@JoinColumn(name = "system_user_id")
 	private SystemUser systemUser;
 
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	@JoinTable(name = "message_recipient_message_group", //
 			joinColumns = @JoinColumn(name = "message_recipient_id"), //
 			inverseJoinColumns = @JoinColumn(name = "message_group_id"))

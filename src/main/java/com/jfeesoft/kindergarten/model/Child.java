@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
 @SequenceGenerator(name = "seq_child", sequenceName = "seq_child", initialValue = 1, allocationSize = 1)
 public class Child {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_system_user")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_child")
 	@Column(name = "child_id")
 	private Integer id;
 
@@ -47,7 +47,7 @@ public class Child {
 	@Column(name = "description", unique = false, nullable = true, insertable = true, updatable = true, length = 256)
 	private String description;
 
-	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "system_user")
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "children")
 	private Set<SystemUser> systemUser = new HashSet<>(0);
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
