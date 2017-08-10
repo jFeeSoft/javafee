@@ -1,63 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:pe="http://primefaces.org/ui/extensions">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:f="http://java.sun.com/jsf/core">
 
-    <style type="text/css">
-        #layout-menu_menu {
-            z-index: 9997!important;
-        }
-        #layout-menu_menu span.ui-menuitem-text {
-            margin-left: 2px;
-        }
+	<style type="text/css">
+#layout-menu_menu {
+	z-index: 9997 !important;
+}
 
-    </style>
-    <ul class="nav navbar-nav">
-    <li>
-    <h:form>
-	<p:growl id="growl" life="2000" />
-	</h:form>
-    	<!-- h:form>
-    	<p:commandButton value="#{msg['button.lang']}" id="nonAjax"	actionListener="#{jezyk.buttonAction}" ajax="false"/>
-    	
-				</h:form-->
-    </li>
-        <li class="dropdown user user-menu">
+#layout-menu_menu span.ui-menuitem-text {
+	margin-left: 2px;
+}
+</style>
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Messages: style can be found in dropdown.less-->
+          <li>
+            <div >
+            <h:panelGrid columns="2" style="margin-top:10px" cellpadding="5">
+             <p:outputLabel for="console" value="Twoje dziecko:" />
+             <p:selectOneMenu id="console" value="#{testBeanView.testStr}">
+            		<f:selectItem itemLabel="Jan Kowalski - Słoneczka" itemValue="" />
+            		<f:selectItem itemLabel="Staś Nowak - Misie" itemValue="Xbox One" />
+        		</p:selectOneMenu> 
+        </h:panelGrid>
+            </div>
+            </li>
+          <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <pe:gravatar id="userImage" value="mm" notFound="mm"/>
-                <span class="hidden-xs">#{logonMB.currentUser}</span>
+              <i class="fa fa-envelope-o"></i>
+              <span class="label label-success">4</span>
             </a>
             <ul class="dropdown-menu">
-                <li class="user-header">
-                    <div class="hidden-xs">
-                        <pe:gravatar style="border-radius: 50%" value="mm" notFound="mm"/>
-                    </div>
-                    <p>
-                        #{logonMB.currentUser}
-                        <small>Subtitle</small>
-                    </p>
-                </li>
-                <li class="user-footer">
-                    <h:form prependId="false">
-                        <div class="pull-left">
-                            <p:commandLink styleClass="btn btn-danger" value="Change password"/>
-                        </div>
-                        <div class="pull-right">
-                        	<p:link href="/appLogout">
-                				<i class="fa fa-sign-out fa-2x"></i>
-                				<span>Wyloguj</span>
-            				</p:link>
-                            <!-- p:commandLink id="logout" action="/appLogout" title="Logoff">
-                                <i class="fa fa-sign-out fa-2x"></i>
-                            </p:commandLink-->
-                        </div>
-                    </h:form>
-                </li>
+              <li class="header">You have 4 messages</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li><!-- start message -->
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                      </div>
+                      <h4>
+                        Support Team
+                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <!-- end message -->
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image"/>
+                      </div>
+                      <h4>
+                        AdminLTE Design Team
+                        <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image"/>
+                      </div>
+                      <h4>
+                        Developers
+                        <small><i class="fa fa-clock-o"></i> Today</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image"/>
+                      </div>
+                      <h4>
+                        Sales Department
+                        <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image"/>
+                      </div>
+                      <h4>
+                        Reviewers
+                        <small><i class="fa fa-clock-o"></i> 2 days</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
-        </li>
+          </li>
+          
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <pe:gravatar style="border-radius: 50%" value="mm" notFound="mm" size="20"/>
+              <span class="hidden-xs">#{logonMB.currentUser}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <pe:gravatar style="border-radius: 50%" value="mm" notFound="mm" />
 
-    </ul>
+                <p>
+                  Alexander Pierce - Web Developer
+                  <small>Member since Nov. 2012</small>
+                </p>
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">Profil</a>
+                </div>
+                <div class="pull-right">
+                  <a href="#" class="btn btn-default btn-flat">Ustawienia</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+          <li>
+          <p:link href="/appLogout">
+								<i class="fa fa-sign-out fa-x"></i>
+					<span>Wyloguj</span>
+							</p:link>
+          </li>
+        </ul>
+      </div>
+      
+      
+	<!-- ul class="nav navbar-nav">
+		<li><h:form>
+				<p:growl id="growl" life="2000" />
+			</h:form> <h:form>
+    	<p:commandButton value="#{msg['button.lang']}" id="nonAjax"	actionListener="#{jezyk.buttonAction}" ajax="false"/>
+    	
+				</h:form></li>
+		<li class="dropdown user user-menu">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+				<pe:gravatar id="userImage" value="mm" notFound="mm" /> 
+				<span class="hidden-xs">#{logonMB.currentUser}</span>
+		</a>
+			<ul class="dropdown-menu">
+				<li class="user-header">
+					<div class="hidden-xs">
+						<pe:gravatar style="border-radius: 50%" value="mm" notFound="mm" />
+					</div>
+					<p>
+						#{logonMB.currentUser} <small>Subtitle</small>
+					</p>
+				</li>
+				<li class="user-footer"><h:form prependId="false">
+						<div class="pull-left">
+							<p:commandLink styleClass="btn btn-danger"
+								value="Change password" />
+						</div>
+						<div class="pull-right">
+							<p:link href="/appLogout">
+								<i class="fa fa-sign-out fa-2x"></i>
+								<span>Wyloguj</span>
+							</p:link>
+							< p:commandLink id="logout" action="/appLogout" title="Logoff">
+                                <i class="fa fa-sign-out fa-2x"></i>
+                            </p:commandLink>
+						</div>
+					</h:form></li>
+			</ul></li>
+
+	</ul-->
 
 </ui:composition>

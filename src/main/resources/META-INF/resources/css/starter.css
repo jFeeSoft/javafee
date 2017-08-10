@@ -37,3 +37,22 @@ a#logout {
 .poland-class {
 	 background-image: url("/resources/favicon/poland.png") !important;
 }
+.direct-chat-messages2 {
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	-o-transform: translate(0, 0);
+	transform: translate(0, 0);
+	padding: 10px;
+	height: 500px;
+	overflow: auto
+}
+
+.direct-chat-messages3 {
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	-o-transform: translate(0, 0);
+	transform: translate(0, 0);
+	padding: 10px;
+	height: 680px;
+	overflow: auto
+}

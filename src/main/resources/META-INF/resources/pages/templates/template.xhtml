@@ -3,7 +3,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                template="/pages/templates/admin.xhtml">
+                template="/pages/templates/admin.xhtml"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="head">
         <title>#{msg['application.name']}</title>
@@ -21,11 +22,13 @@
     </ui:define>
 
     <ui:define name="logo">
+    	<p:graphicImage name="favicon/poland.png" />
         #{msg['application.name']}
     </ui:define>
 
     <ui:define name="logo-mini">
-        #{msg['application.name.mini']}
+    	<p:graphicImage name="favicon/poland.png" />
+        <!-- #{msg['application.name.mini']}-->
     </ui:define>
 
      <ui:define name="menu">
@@ -40,7 +43,7 @@
 
     <ui:define name="footer">
           <a target="_blank"
-           href="http://sygnity.pl">
+           href="#">
            	#{msg['application.copyrights']}
         </a>
 
