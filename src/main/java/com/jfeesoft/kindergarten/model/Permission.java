@@ -8,9 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "permission")
 @SequenceGenerator(name = "seq_permission", sequenceName = "seq_permission", allocationSize = 1)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Permission {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_permission")
@@ -24,27 +31,4 @@ public class Permission {
 	@Column(name = "component", length = 64)
 	private String component;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getComponent() {
-		return component;
-	}
-
-	public void setComponent(String component) {
-		this.component = component;
-	}
 }
