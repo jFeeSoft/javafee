@@ -29,10 +29,10 @@ public class AuthUserDetailsService implements UserDetailsService {
 		boolean accountNonExpired = true;
 		boolean credentialsNonExpired = true;
 		boolean accountNonLocked = true;
-		SystemUser uzytkownik = systemUserRepository.findByEmail(userName);
+		SystemUser systemUser = systemUserRepository.findByEmailAddress(userName);
 
-		User userdetails = new User(uzytkownik.getSurname(), uzytkownik.getPassword(), uzytkownik.getIsActive(),
-				accountNonExpired, credentialsNonExpired, accountNonLocked, getAuthorities(uzytkownik.getRoles()));
+		User userdetails = new User(systemUser.getSurname(), systemUser.getPassword(), systemUser.getIsActive(),
+				accountNonExpired, credentialsNonExpired, accountNonLocked, getAuthorities(systemUser.getRoles()));
 
 		return userdetails;
 	}

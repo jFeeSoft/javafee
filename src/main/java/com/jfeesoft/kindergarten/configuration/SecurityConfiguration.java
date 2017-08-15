@@ -26,11 +26,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		http.csrf().disable();
 
-	    http.authorizeRequests().antMatchers("/javax.faces.resource/**").permitAll();//.antMatchers("/pages/**").access("hasAuthority('PERM_LOGIN')");
+		http.authorizeRequests().antMatchers("/javax.faces.resource/**").permitAll().antMatchers("/pages/**")
+				.access("hasAuthority('PERM_LOGIN')");
 
-	    http.formLogin().loginPage("/login.xhtml").loginProcessingUrl("/appLogin").usernameParameter("app_username").passwordParameter("app_password").defaultSuccessUrl("/pages/index.xhtml");
+		http.formLogin().loginPage("/login.xhtml").loginProcessingUrl("/appLogin").usernameParameter("app_username")
+				.passwordParameter("app_password").defaultSuccessUrl("/pages/index.xhtml");
 
-	    http.logout().logoutUrl("/appLogout").logoutSuccessUrl("/login.xhtml");
+		http.logout().logoutUrl("/appLogout").logoutSuccessUrl("/login.xhtml");
 	}
 
 	@Autowired

@@ -20,9 +20,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "system_user")
 @SequenceGenerator(name = "seq_system_user", sequenceName = "seq_system_user", initialValue = 1, allocationSize = 1)
+@Data
 public class SystemUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_system_user")
@@ -76,18 +79,15 @@ public class SystemUser {
 	@Column(name = "is_active", nullable = false)
 	private Boolean isActive;
 
-	@Column(name = "is_blocked")
-	private Boolean isBlocked;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "registration_date", length = 64)
 	private Date registrationDate;
 
-	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "system_user_role", //
-			joinColumns = @JoinColumn(name = "system_user_id"), //
-			inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles = new HashSet<>(0);
+			joinColumns = { @JoinColumn(name = "system_user_id") }, //
+			inverseJoinColumns = { @JoinColumn(name = "role_id") })
+	private Set<Role> roles = new HashSet<Role>(0);
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	@JoinTable(name = "system_user_message_group", //
@@ -101,171 +101,4 @@ public class SystemUser {
 			inverseJoinColumns = @JoinColumn(name = "child_id"))
 	private Set<Child> children = new HashSet<>(0);
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Integer getPasswordAttemptCount() {
-		return passwordAttemptCount;
-	}
-
-	public void setPasswordAttemptCount(Integer passwordAttemptCount) {
-		this.passwordAttemptCount = passwordAttemptCount;
-	}
-
-	public String getFisrstName() {
-		return fisrstName;
-	}
-
-	public void setFisrstName(String fisrstName) {
-		this.fisrstName = fisrstName;
-	}
-
-	public String getSecondName() {
-		return secondName;
-	}
-
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getEmailAddress() {
-		return emailAddress;
-	}
-
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	public Character getSex() {
-		return sex;
-	}
-
-	public void setSex(Character sex) {
-		this.sex = sex;
-	}
-
-	public String getPeselNumber() {
-		return peselNumber;
-	}
-
-	public void setPeselNumber(String peselNumber) {
-		this.peselNumber = peselNumber;
-	}
-
-	public String getDocumentNumber() {
-		return documentNumber;
-	}
-
-	public void setDocumentNumber(String documentNumber) {
-		this.documentNumber = documentNumber;
-	}
-
-	public Boolean getRegistered() {
-		return registered;
-	}
-
-	public void setRegistered(Boolean registered) {
-		this.registered = registered;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	public Boolean getIsBlocked() {
-		return isBlocked;
-	}
-
-	public void setIsBlocked(Boolean isBlocked) {
-		this.isBlocked = isBlocked;
-	}
-
-	public Date getRegistrationDate() {
-		return registrationDate;
-	}
-
-	public void setRegistrationDate(Date registrationDate) {
-		this.registrationDate = registrationDate;
-	}
-
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
-
-	public Set<MessageGroup> getMessageGroups() {
-		return messageGroups;
-	}
-
-	public void setMessageGroups(Set<MessageGroup> messageGroups) {
-		this.messageGroups = messageGroups;
-	}
-
-	public Set<Child> getChildren() {
-		return children;
-	}
-
-	public void setChildren(Set<Child> children) {
-		this.children = children;
-	}
 }

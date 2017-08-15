@@ -1,183 +1,659 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-	<changeSet author="twojcicki (generated)" id="1496836749281-1">
-		<createTable tableName="rola">
-			<column name="nazwa_roli" type="VARCHAR(64)">
-				<constraints nullable="false" />
-			</column>
-		</createTable>
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-2">
-		<createTable tableName="rola_uzytkownika">
-			<column name="id_uzytkownika" type="VARCHAR(64)">
-				<constraints nullable="false" />
-			</column>
-			<column name="id_roli" type="VARCHAR(64)">
-				<constraints nullable="false" />
-			</column>
-		</createTable>
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-3">
-		<createTable tableName="uprawnienie">
-			<column name="nazwa_uprawnienia" type="VARCHAR(64)">
-				<constraints nullable="false" />
-			</column>
-			<column name="komponent" type="VARCHAR(64)" />
-		</createTable>
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-4">
-		<createTable tableName="uprawnienie_roli">
-			<column name="id_roli" type="VARCHAR(64)">
-				<constraints nullable="false" />
-			</column>
-			<column name="id_uprawnienia" type="VARCHAR(64)">
-				<constraints nullable="false" />
-			</column>
-		</createTable>
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-5">
-		<createTable tableName="uzytkownik">
-			<column name="email" type="VARCHAR(64)">
-				<constraints nullable="false" />
-			</column>
-			<column name="czas_rejestracji" type="TIMESTAMP WITHOUT TIME ZONE">
-				<constraints nullable="false" />
-			</column>
-			<column name="haslo" type="VARCHAR(64)">
-				<constraints nullable="false" />
-			</column>
-			<column name="imie" type="VARCHAR(64)">
-				<constraints nullable="false" />
-			</column>
-			<column name="nazwisko" type="VARCHAR(64)" />
-			<column name="odblokowany" type="BOOLEAN" />
-			<column name="opis" type="VARCHAR(512)" />
-		</createTable>
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-6">
-		<addPrimaryKey columnNames="id_uzytkownika, id_roli"
-			tableName="rola_uzytkownika" />
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-7">
-		<addPrimaryKey columnNames="id_roli, id_uprawnienia"
-			tableName="uprawnienie_roli" />
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-8">
-		<addPrimaryKey columnNames="nazwa_roli" constraintName="rolaPK"
-			tableName="rola" />
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-9">
-		<addPrimaryKey columnNames="nazwa_uprawnienia"
-			constraintName="uprawnieniePK" tableName="uprawnienie" />
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-10">
-		<addPrimaryKey columnNames="email" constraintName="uzytkownikPK"
-			tableName="uzytkownik" />
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-11">
-		<addUniqueConstraint columnNames="nazwa_roli"
-			constraintName="UC_ROLANAZWA_ROLI_COL" tableName="rola" />
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-12">
-		<addUniqueConstraint columnNames="nazwa_uprawnienia"
-			constraintName="UC_UPRAWNIENIENAZWA_UPRAWNIENIA_COL" tableName="uprawnienie" />
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-13">
-		<addUniqueConstraint columnNames="email"
-			constraintName="UC_UZYTKOWNIKEMAIL_COL" tableName="uzytkownik" />
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-14">
-		<addForeignKeyConstraint baseColumnNames="id_uprawnienia"
-			baseTableName="uprawnienie_roli" constraintName="FK147f69fd117ecr45axckr179f"
-			deferrable="false" initiallyDeferred="false" referencedColumnNames="nazwa_uprawnienia"
-			referencedTableName="uprawnienie" />
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-15">
-		<addForeignKeyConstraint baseColumnNames="id_roli"
-			baseTableName="uprawnienie_roli" constraintName="FK39ny7m59s8talip42klyaag4b"
-			deferrable="false" initiallyDeferred="false" referencedColumnNames="nazwa_roli"
-			referencedTableName="rola" />
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-16">
-		<addForeignKeyConstraint baseColumnNames="id_uzytkownika"
-			baseTableName="rola_uzytkownika" constraintName="FKewgpqvhwui9halce87xxei7ia"
-			deferrable="false" initiallyDeferred="false" referencedColumnNames="email"
-			referencedTableName="uzytkownik" />
-	</changeSet>
-	<changeSet author="twojcicki (generated)" id="1496836749281-17">
-		<addForeignKeyConstraint baseColumnNames="id_roli"
-			baseTableName="rola_uzytkownika" constraintName="FKkrx9lie0jpkthldh875r9ohoi"
-			deferrable="false" initiallyDeferred="false" referencedColumnNames="nazwa_roli"
-			referencedTableName="rola" />
-	</changeSet>
-
-	<changeSet id="1496828081377-22" author="twojcicki">
-		<insert schemaName="public" tableName="rola">
-			<column name="nazwa_roli" value="ROLE_ADMIN" />
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="Tomek (generated)" id="1502654087101-1">
+        <createSequence sequenceName="seq_address"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-2">
+        <createSequence sequenceName="seq_calendar"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-3">
+        <createSequence sequenceName="seq_child"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-4">
+        <createSequence sequenceName="seq_city"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-5">
+        <createSequence sequenceName="seq_event"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-6">
+        <createSequence sequenceName="seq_group"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-7">
+        <createSequence sequenceName="seq_group_type"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-8">
+        <createSequence sequenceName="seq_language"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-9">
+        <createSequence sequenceName="seq_meal"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-10">
+        <createSequence sequenceName="seq_meal_type"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-11">
+        <createSequence sequenceName="seq_message"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-12">
+        <createSequence sequenceName="seq_message_group"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-13">
+        <createSequence sequenceName="seq_message_recipient"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-14">
+        <createSequence sequenceName="seq_organisation"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-15">
+        <createSequence sequenceName="seq_permission"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-16">
+        <createSequence sequenceName="seq_role"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-17">
+        <createSequence sequenceName="seq_system_data"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-18">
+        <createSequence sequenceName="seq_system_user"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-19">
+        <createTable tableName="address">
+            <column name="address_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="house_number" type="VARCHAR(16)"/>
+            <column name="local_number" type="VARCHAR(16)"/>
+            <column name="street" type="VARCHAR(128)"/>
+            <column name="city_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-20">
+        <createTable tableName="calendar">
+            <column name="calendar_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-21">
+        <createTable tableName="child">
+            <column name="child_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birth_date" type="date"/>
+            <column name="description" type="VARCHAR(256)"/>
+            <column name="first_name" type="VARCHAR(64)"/>
+            <column name="second_name" type="VARCHAR(64)"/>
+            <column name="sex" type="CHAR(1)"/>
+            <column name="surname" type="VARCHAR(64)"/>
+            <column name="group_id" type="INT"/>
+            <column name="event_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-22">
+        <createTable tableName="child_event">
+            <column name="child_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-23">
+        <createTable tableName="child_group">
+            <column name="child_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-24">
+        <createTable tableName="child_organisation">
+            <column name="child_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="organisation_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-25">
+        <createTable tableName="city">
+            <column name="city_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(64)"/>
+            <column name="postal_code" type="VARCHAR(6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-26">
+        <createTable tableName="event">
+            <column name="event_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="begin_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="description" type="VARCHAR(256)"/>
+            <column name="end_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="name" type="VARCHAR(64)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-27">
+        <createTable tableName="group">
+            <column name="group_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(256)"/>
+            <column name="name" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_organisation" type="INT"/>
+            <column name="group_type_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-28">
+        <createTable tableName="group_type">
+            <column name="group_type_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(256)"/>
+            <column name="name" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-29">
+        <createTable tableName="language">
+            <column name="language_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-30">
+        <createTable tableName="meal">
+            <column name="meal_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(256)"/>
+            <column name="meal_type_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-31">
+        <createTable tableName="meal_type">
+            <column name="meal_type_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(256)"/>
+            <column name="name" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-32">
+        <createTable tableName="message">
+            <column name="message_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content" type="VARCHAR(1024)"/>
+            <column name="is_priority" type="BOOLEAN"/>
+            <column name="is_read" type="BOOLEAN"/>
+            <column name="is_send" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="send_attempt_count" type="INT"/>
+            <column name="send_date" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(64)"/>
+            <column name="system_user_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-33">
+        <createTable tableName="message_group">
+            <column name="message_group_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(256)"/>
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="name" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-34">
+        <createTable tableName="message_recipient">
+            <column name="message_recipient_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message_id" type="INT"/>
+            <column name="system_user_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-35">
+        <createTable tableName="message_recipient_message_group">
+            <column name="message_recipient_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message_group_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-36">
+        <createTable tableName="organisation">
+            <column name="organisation_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nip_number" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_id" type="INT"/>
+            <column name="system_data_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-37">
+        <createTable tableName="permission">
+            <column name="permission_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="component" type="VARCHAR(64)"/>
+            <column name="name" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-38">
+        <createTable tableName="role">
+            <column name="role_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(64)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-39">
+        <createTable tableName="role_permission">
+            <column name="role_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permission_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-40">
+        <createTable tableName="system_data">
+            <column name="system_data_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="build_number" type="VARCHAR(64)"/>
+            <column name="has_license" type="BOOLEAN"/>
+            <column name="installation_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="license_number" type="VARCHAR(64)"/>
+            <column name="name" type="VARCHAR(64)"/>
+            <column name="version" type="VARCHAR(64)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-41">
+        <createTable tableName="system_user">
+            <column name="system_user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birth_date" type="date"/>
+            <column name="description" type="VARCHAR(256)"/>
+            <column name="document_number" type="VARCHAR(20)"/>
+            <column name="email_address" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(64)"/>
+            <column name="is_active" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_attempt_count" type="INT"/>
+            <column name="pesel" type="VARCHAR(11)"/>
+            <column name="phone_number" type="VARCHAR(64)"/>
+            <column name="registered" type="BOOLEAN"/>
+            <column name="registration_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="second_name" type="VARCHAR(64)"/>
+            <column name="sex" type="CHAR(1)"/>
+            <column name="surname" type="VARCHAR(64)"/>
+            <column name="address_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-42">
+        <createTable tableName="system_user_child">
+            <column name="system_user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="child_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-43">
+        <createTable tableName="system_user_message_group">
+            <column name="system_user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message_group_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-44">
+        <createTable tableName="system_user_role">
+            <column name="system_user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-45">
+        <addPrimaryKey columnNames="child_id, event_id" tableName="child_event"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-46">
+        <addPrimaryKey columnNames="child_id, group_id" tableName="child_group"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-47">
+        <addPrimaryKey columnNames="child_id, organisation_id" tableName="child_organisation"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-48">
+        <addPrimaryKey columnNames="message_recipient_id, message_group_id" tableName="message_recipient_message_group"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-49">
+        <addPrimaryKey columnNames="role_id, permission_id" tableName="role_permission"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-50">
+        <addPrimaryKey columnNames="system_user_id, child_id" tableName="system_user_child"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-51">
+        <addPrimaryKey columnNames="system_user_id, message_group_id" tableName="system_user_message_group"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-52">
+        <addPrimaryKey columnNames="system_user_id, role_id" tableName="system_user_role"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-53">
+        <addPrimaryKey columnNames="address_id" constraintName="addressPK" tableName="address"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-54">
+        <addPrimaryKey columnNames="calendar_id" constraintName="calendarPK" tableName="calendar"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-55">
+        <addPrimaryKey columnNames="child_id" constraintName="childPK" tableName="child"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-56">
+        <addPrimaryKey columnNames="city_id" constraintName="cityPK" tableName="city"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-57">
+        <addPrimaryKey columnNames="event_id" constraintName="eventPK" tableName="event"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-58">
+        <addPrimaryKey columnNames="group_id" constraintName="groupPK" tableName="group"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-59">
+        <addPrimaryKey columnNames="group_type_id" constraintName="group_typePK" tableName="group_type"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-60">
+        <addPrimaryKey columnNames="language_id" constraintName="languagePK" tableName="language"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-61">
+        <addPrimaryKey columnNames="meal_id" constraintName="mealPK" tableName="meal"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-62">
+        <addPrimaryKey columnNames="meal_type_id" constraintName="meal_typePK" tableName="meal_type"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-63">
+        <addPrimaryKey columnNames="message_id" constraintName="messagePK" tableName="message"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-64">
+        <addPrimaryKey columnNames="message_group_id" constraintName="message_groupPK" tableName="message_group"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-65">
+        <addPrimaryKey columnNames="message_recipient_id" constraintName="message_recipientPK" tableName="message_recipient"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-66">
+        <addPrimaryKey columnNames="organisation_id" constraintName="organisationPK" tableName="organisation"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-67">
+        <addPrimaryKey columnNames="permission_id" constraintName="permissionPK" tableName="permission"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-68">
+        <addPrimaryKey columnNames="role_id" constraintName="rolePK" tableName="role"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-69">
+        <addPrimaryKey columnNames="system_data_id" constraintName="system_dataPK" tableName="system_data"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-70">
+        <addPrimaryKey columnNames="system_user_id" constraintName="system_userPK" tableName="system_user"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-71">
+        <addUniqueConstraint columnNames="name" constraintName="UC_LANGUAGENAME_COL" tableName="language"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-72">
+        <addUniqueConstraint columnNames="name" constraintName="UC_MEAL_TYPENAME_COL" tableName="meal_type"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-73">
+        <addUniqueConstraint columnNames="document_number" constraintName="UC_SYSTEM_USERDOCUMENT_NUMBER_COL" tableName="system_user"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-74">
+        <addUniqueConstraint columnNames="email_address" constraintName="UC_SYSTEM_USEREMAIL_ADDRESS_COL" tableName="system_user"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-75">
+        <addUniqueConstraint columnNames="pesel" constraintName="UC_SYSTEM_USERPESEL_COL" tableName="system_user"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-76">
+        <addUniqueConstraint columnNames="license_number" constraintName="UK2j7380gw8wn7l34fnfnalcspk" tableName="system_data"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-77">
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="child" constraintName="FK1j0qg4sttmxd2epc0pipv5orn" deferrable="false" initiallyDeferred="false" referencedColumnNames="event_id" referencedTableName="event"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-78">
+        <addForeignKeyConstraint baseColumnNames="address_id" baseTableName="system_user" constraintName="FK1m4pu01of1p8k5fwd2gd2hnjn" deferrable="false" initiallyDeferred="false" referencedColumnNames="address_id" referencedTableName="address"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-79">
+        <addForeignKeyConstraint baseColumnNames="organisation_id" baseTableName="child_organisation" constraintName="FK1wx39s2scykin212trgh0p3lq" deferrable="false" initiallyDeferred="false" referencedColumnNames="organisation_id" referencedTableName="organisation"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-80">
+        <addForeignKeyConstraint baseColumnNames="system_user_id" baseTableName="message_recipient" constraintName="FK35w3wpwvbxp5bjoj3nmnxk6f4" deferrable="false" initiallyDeferred="false" referencedColumnNames="system_user_id" referencedTableName="system_user"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-81">
+        <addForeignKeyConstraint baseColumnNames="system_user_id" baseTableName="system_user_role" constraintName="FK5soqc4583re86busn1idb194d" deferrable="false" initiallyDeferred="false" referencedColumnNames="system_user_id" referencedTableName="system_user"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-82">
+        <addForeignKeyConstraint baseColumnNames="message_group_id" baseTableName="message_recipient_message_group" constraintName="FK6cqou1cq812jrey7s41f447b2" deferrable="false" initiallyDeferred="false" referencedColumnNames="message_group_id" referencedTableName="message_group"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-83">
+        <addForeignKeyConstraint baseColumnNames="system_user_id" baseTableName="system_user_child" constraintName="FK7cijx0fbx2ehm1l48jtcbtj3g" deferrable="false" initiallyDeferred="false" referencedColumnNames="system_user_id" referencedTableName="system_user"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-84">
+        <addForeignKeyConstraint baseColumnNames="child_id" baseTableName="child_group" constraintName="FK7d12igcwdxbwq9cmmlkntu5pp" deferrable="false" initiallyDeferred="false" referencedColumnNames="child_id" referencedTableName="child"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-85">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="role_permission" constraintName="FKa6jx8n8xkesmjmv6jqug6bg68" deferrable="false" initiallyDeferred="false" referencedColumnNames="role_id" referencedTableName="role"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-86">
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="child_event" constraintName="FKaoxf555ud5eojhxy0myt7gxga" deferrable="false" initiallyDeferred="false" referencedColumnNames="event_id" referencedTableName="event"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-87">
+        <addForeignKeyConstraint baseColumnNames="meal_type_id" baseTableName="meal" constraintName="FKary9xhtcrhtghh12c6gc9lrrf" deferrable="false" initiallyDeferred="false" referencedColumnNames="meal_type_id" referencedTableName="meal_type"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-88">
+        <addForeignKeyConstraint baseColumnNames="message_group_id" baseTableName="system_user_message_group" constraintName="FKbg5xnll49jt2ut2phxl6b7h3e" deferrable="false" initiallyDeferred="false" referencedColumnNames="message_group_id" referencedTableName="message_group"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-89">
+        <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="child_group" constraintName="FKbuk4i62yx2hbmuwiwe1ihffc9" deferrable="false" initiallyDeferred="false" referencedColumnNames="group_id" referencedTableName="group"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-90">
+        <addForeignKeyConstraint baseColumnNames="message_id" baseTableName="message_recipient" constraintName="FKdw3i7xc9tgt3nwkn5v8pe7tew" deferrable="false" initiallyDeferred="false" referencedColumnNames="message_id" referencedTableName="message"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-91">
+        <addForeignKeyConstraint baseColumnNames="system_data_id" baseTableName="organisation" constraintName="FKe3noj8o179roym1qawihi47wg" deferrable="false" initiallyDeferred="false" referencedColumnNames="system_data_id" referencedTableName="system_data"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-92">
+        <addForeignKeyConstraint baseColumnNames="permission_id" baseTableName="role_permission" constraintName="FKf8yllw1ecvwqy3ehyxawqa1qp" deferrable="false" initiallyDeferred="false" referencedColumnNames="permission_id" referencedTableName="permission"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-93">
+        <addForeignKeyConstraint baseColumnNames="system_user_id" baseTableName="system_user_message_group" constraintName="FKjt42d1yhst2gs0kktval71wy" deferrable="false" initiallyDeferred="false" referencedColumnNames="system_user_id" referencedTableName="system_user"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-94">
+        <addForeignKeyConstraint baseColumnNames="address_id" baseTableName="organisation" constraintName="FKkuaiw4504xw0nyrly6ldjlcjp" deferrable="false" initiallyDeferred="false" referencedColumnNames="address_id" referencedTableName="address"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-95">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="system_user_role" constraintName="FKl71b9ib2ylhgyby4x7r5bof17" deferrable="false" initiallyDeferred="false" referencedColumnNames="role_id" referencedTableName="role"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-96">
+        <addForeignKeyConstraint baseColumnNames="child_id" baseTableName="child_organisation" constraintName="FKm2hqxnf64yuk5odfbxmh2ke3d" deferrable="false" initiallyDeferred="false" referencedColumnNames="child_id" referencedTableName="child"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-97">
+        <addForeignKeyConstraint baseColumnNames="group_type_id" baseTableName="group" constraintName="FKm3cg8fk3grqbn66vpim3oea4o" deferrable="false" initiallyDeferred="false" referencedColumnNames="group_type_id" referencedTableName="group_type"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-98">
+        <addForeignKeyConstraint baseColumnNames="id_organisation" baseTableName="group" constraintName="FKnewteovm6orns3oi6oc1vkqld" deferrable="false" initiallyDeferred="false" referencedColumnNames="organisation_id" referencedTableName="organisation"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-99">
+        <addForeignKeyConstraint baseColumnNames="child_id" baseTableName="system_user_child" constraintName="FKp787rn24quv67rawo28vb5pbx" deferrable="false" initiallyDeferred="false" referencedColumnNames="child_id" referencedTableName="child"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-100">
+        <addForeignKeyConstraint baseColumnNames="city_id" baseTableName="address" constraintName="FKpo044ng5x4gynb291cv24vtea" deferrable="false" initiallyDeferred="false" referencedColumnNames="city_id" referencedTableName="city"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-101">
+        <addForeignKeyConstraint baseColumnNames="system_user_id" baseTableName="message" constraintName="FKq6a3mycnnwbc5gy3e0jkxgiyd" deferrable="false" initiallyDeferred="false" referencedColumnNames="system_user_id" referencedTableName="system_user"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-102">
+        <addForeignKeyConstraint baseColumnNames="message_recipient_id" baseTableName="message_recipient_message_group" constraintName="FKrljq3edt6dtpgkgnd0oxql75m" deferrable="false" initiallyDeferred="false" referencedColumnNames="message_recipient_id" referencedTableName="message_recipient"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-103">
+        <addForeignKeyConstraint baseColumnNames="child_id" baseTableName="child_event" constraintName="FKrty0nysdh8enbm4k7s8bhn5gy" deferrable="false" initiallyDeferred="false" referencedColumnNames="child_id" referencedTableName="child"/>
+    </changeSet>
+    <changeSet author="Tomek (generated)" id="1502654087101-104">
+        <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="child" constraintName="FKsax3hxvsf2qnwbux0dqlcijmo" deferrable="false" initiallyDeferred="false" referencedColumnNames="group_id" referencedTableName="group"/>
+    </changeSet>
+        <changeSet id="1496828081377-22" author="twojcicki">
+		<insert schemaName="public" tableName="role">
+			<column name="role_id" value="1"/>
+			<column name="name" value="ROLE_ADMIN" />
 		</insert>
-		<insert schemaName="public" tableName="rola">
-			<column name="nazwa_roli" value="ROLE_USER" />
+		<insert schemaName="public" tableName="role">
+			<column name="role_id" value="2"/>
+			<column name="name" value="ROLE_USER" />
 		</insert>
-		<insert schemaName="public" tableName="uprawnienie">
-			<column name="nazwa_uprawnienia" value="PERM_LOGIN" />
+		<insert schemaName="public" tableName="permission">
+			<column name="permission_id" value="1"/>
+			<column name="name" value="PERM_LOGIN" />
+			<column name="component" value="COMP_LOGIN" />
 		</insert>
-		<insert schemaName="public" tableName="uprawnienie">
-			<column name="nazwa_uprawnienia" value="PERM_VIEW" />
+		<insert schemaName="public" tableName="permission">
+			<column name="permission_id" value="2"/>
+			<column name="name" value="PERM_VIEW" />
+			<column name="component" value="COMP_VIEW" />
 		</insert>
-		<insert schemaName="public" tableName="uprawnienie">
-			<column name="nazwa_uprawnienia" value="PERM_EDIT" />
+		<insert schemaName="public" tableName="permission">
+			<column name="permission_id" value="3"/>
+			<column name="name" value="PERM_EDIT" />
+			<column name="component" value="COMP_EDIT" />
 		</insert>
-		<insert schemaName="public" tableName="uzytkownik">
-			<column name="email" value="admin@admin.pl" />
-			<column name="czas_rejestracji" valueDate="2000-01-01T00:00:00" />
-			<column name="haslo"
-				value="$2a$10$WvqLf7dCBOhAG5JCc6nomOc3HS0Mu6hhbLurpSHA6n0Ck/I/8RVky" />
-			<column name="imie" value="adminName" />
-			<column name="nazwisko" value="adminSurname" />
-			<column name="odblokowany" valueBoolean="true" />
-			<column name="opis" value="admin test" />
+		<insert schemaName="public" tableName="city">
+			<column name="city_id" value="1"/>
+			<column name="name" value="Katowice"/>
+			<column name="postal_code" value="42-100"/>
 		</insert>
-		<insert schemaName="public" tableName="uzytkownik">
-			<column name="email" value="user@user.pl" />
-			<column name="czas_rejestracji" valueDate="2000-01-01T00:00:00" />
-			<column name="haslo"
-				value="$2a$10$dw18zJFma7v0RxLKDultrOLLtt113OWAWgzZtR4kZxmjgfXc3fKoS" />
-			<column name="imie" value="userName" />
-			<column name="nazwisko" value="userSurname" />
-			<column name="odblokowany" valueBoolean="true" />
-			<column name="opis" value="user test" />
+		<insert schemaName="public" tableName="city">
+			<column name="city_id" value="2"/>
+			<column name="name" value="Chorzów"/>
+			<column name="postal_code" value="42-101"/>
+		</insert>
+		<insert schemaName="public" tableName="city">
+			<column name="city_id" value="3"/>
+			<column name="name" value="Zabrze"/>
+			<column name="postal_code" value="42-102"/>
+		</insert>
+		<insert schemaName="public" tableName="address">
+			<column name="address_id" value="1"/>
+			<column name="street" value="Ulica1"/>
+			<column name="house_number" value="1"/>
+			<column name="local_number" value="11"/>
+			<column name="city_id" value="1"/>
+		</insert>
+		<insert schemaName="public" tableName="address">
+			<column name="address_id" value="2"/>
+			<column name="street" value="Ulica2"/>
+			<column name="house_number" value="2"/>
+			<column name="local_number" value="22"/>
+			<column name="city_id" value="2"/>
+		</insert>
+		<insert schemaName="public" tableName="system_user">
+			<column name="system_user_id" value="1"/>
+			<column name="email_address" value="admin@admin.pl" />
+			<column name="phone_number" value="111222333" />
+			<column name="birth_date" valueDate="1980-01-01T00:00:00" />
+			<column name="sex" value="M" />
+			<column name="registration_date" valueDate="2000-01-01T00:00:00" />
+			<column name="password"
+				value="$2a$06$AFhxpPj1aQ.ALAt6jrJkVOeIi5XvleQgYSls/amg3tx3c3FFrLiea" />
+			<column name="first_name" value="adminName" />
+			<column name="second_name" value="adminName" />
+			<column name="surname" value="adminSurname" />
+			<column name="is_active" valueBoolean="true" />
+			<column name="description" value="admin test" />
+			<column name="address_id" value="1" />
+		</insert>
+		<insert schemaName="public" tableName="system_user">
+			<column name="system_user_id" value="2"/>
+			<column name="email_address" value="user@user.pl" />
+			<column name="phone_number" value="222333444" />
+			<column name="birth_date" valueDate="1980-02-02T00:00:00" />
+			<column name="sex" value="M" />
+			<column name="registration_date" valueDate="2000-02-02T00:00:00" />
+			<column name="password"
+				value="$2a$06$svnq7ZE03SiACHYuQ.1GpeVbWtCavl95FqdOXPMpZB5SDfy4.W7vi" />
+			<column name="first_name" value="userName" />
+			<column name="second_name" value="userName" />
+			<column name="surname" value="userSurname" />
+			<column name="is_active" valueBoolean="true" />
+			<column name="description" value="user test" />
+			<column name="address_id" value="2" />
 		</insert>
 	</changeSet>
 	<changeSet id="1496828081377-23" author="twojcicki">
-		<insert schemaName="public" tableName="rola_uzytkownika">
-			<column name="id_uzytkownika" value="admin@admin.pl" />
-			<column name="id_roli" value="ROLE_ADMIN" />
+		<insert schemaName="public" tableName="system_user_role">
+			<column name="system_user_id" value="1" />
+			<column name="role_id" value="1" />
 		</insert>
-		<insert schemaName="public" tableName="rola_uzytkownika">
-			<column name="id_uzytkownika" value="user@user.pl" />
-			<column name="id_roli" value="ROLE_USER" />
+		<insert schemaName="public" tableName="system_user_role">
+			<column name="system_user_id" value="2" />
+			<column name="role_id" value="2" />
 		</insert>
-		<insert schemaName="public" tableName="uprawnienie_roli">
-			<column name="id_uprawnienia" value="PERM_VIEW" />
-			<column name="id_roli" value="ROLE_ADMIN" />
+		<insert schemaName="public" tableName="role_permission">
+			<column name="role_id" value="1" />
+			<column name="permission_id" value="2" />
 		</insert>
-		<insert schemaName="public" tableName="uprawnienie_roli">
-			<column name="id_uprawnienia" value="PERM_LOGIN" />
-			<column name="id_roli" value="ROLE_ADMIN" />
+		<insert schemaName="public" tableName="role_permission">
+			<column name="role_id" value="1" />
+			<column name="permission_id" value="1" />
 		</insert>
-		<insert schemaName="public" tableName="uprawnienie_roli">
-			<column name="id_uprawnienia" value="PERM_EDIT" />
-			<column name="id_roli" value="ROLE_ADMIN" />
+		<insert schemaName="public" tableName="role_permission">
+			<column name="role_id" value="1" />
+			<column name="permission_id" value="3" />
 		</insert>
-		<insert schemaName="public" tableName="uprawnienie_roli">
-			<column name="id_uprawnienia" value="PERM_VIEW" />
-			<column name="id_roli" value="ROLE_USER" />
+		<insert schemaName="public" tableName="role_permission">
+			<column name="role_id" value="2" />
+			<column name="permission_id" value="2" />
 		</insert>
-		<insert schemaName="public" tableName="uprawnienie_roli">
-			<column name="id_uprawnienia" value="PERM_LOGIN" />
-			<column name="id_roli" value="ROLE_USER" />
+		<insert schemaName="public" tableName="role_permission">
+			<column name="role_id" value="2" />
+			<column name="permission_id" value="1" />
 		</insert>
 	</changeSet>
 </databaseChangeLog>
