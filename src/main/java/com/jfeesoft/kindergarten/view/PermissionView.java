@@ -6,6 +6,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,17 @@ public class PermissionView implements Serializable {
 	@Setter
 	private LazyDataModel<Permission> permissionLazyModel;
 
-	private TreeNode[] selectedPermissionNode;
+	@Getter
+	@Setter
 	private String perName;
+
+	@Getter
+	@Setter
 	private String perComp;
-	private TreeNode root;
+
+	@Getter
+	@Setter
+	private Permission selectedPermission;
 
 	public void permissionEdit(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Document Edited", ((TreeNode) event.getObject()).toString());
@@ -45,7 +53,13 @@ public class PermissionView implements Serializable {
 	}
 
 	public void delete() {
-		Utils.addDetailMessage(selectedPermissionNode.length + " cars deleted successfully!");
+		Utils.addDetailMessage("Permission deleted");
+	}
+
+	public void onRowDblSelect(SelectEvent event) {
+		Permission permision = ((Permission) event.getObject());
+		perName = permision.getName();
+		perComp = permision.getComponent();
 	}
 
 	public void clear() {
@@ -56,38 +70,6 @@ public class PermissionView implements Serializable {
 	public void save() {
 		Utils.addDetailMessage("Nowe uprawnienie dodane " + perName + ", " + perComp, FacesMessage.SEVERITY_INFO);
 		clear();
-	}
-
-	public TreeNode getRoot() {
-		return root;
-	}
-
-	public void setRoot(TreeNode root) {
-		this.root = root;
-	}
-
-	public String getPerName() {
-		return perName;
-	}
-
-	public void setPerName(String perName) {
-		this.perName = perName;
-	}
-
-	public String getPerComp() {
-		return perComp;
-	}
-
-	public void setPerComp(String perComp) {
-		this.perComp = perComp;
-	}
-
-	public TreeNode[] getSelectedPermissionNode() {
-		return selectedPermissionNode;
-	}
-
-	public void setSelectedPermissionNode(TreeNode[] selectedPermissionNode) {
-		this.selectedPermissionNode = selectedPermissionNode;
 	}
 
 }

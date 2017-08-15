@@ -28,14 +28,14 @@
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<div id="main-buttons" class=" hidden-sm hidden-xs">
-						<p:commandButton id="perAddButton"
+						<p:commandButton id="perAddButton" actionListener="#{permissionView.clear}"
 							oncomplete="PF('newPermissionDialog').show()" icon="fa fa-plus"
-							value="#{msg['button.add']}" styleClass="btn-primary" />
+							value="#{msg['button.add']}" styleClass="btn-primary" update="permission:newPermissionPanel" />
 						<p:spacer width="10" />
 						<p:commandButton id="perDelButton" value="#{msg['button.delete']}"
 							icon="fa fa-trash" styleClass="btn-danger"
 							actionListener="#{permissionView.clear}"
-							disabled="#{permissionView.selectedPermissionNode eq null or empty permissionView.selectedPermissionNode}"
+							disabled="#{permissionView.selectedPermission eq null or empty permissionView.selectedPermission}"
 							update="permissionTable" />
 
 					</div>
@@ -45,7 +45,8 @@
 						rows="25" widgetVar="permissionTable"
 						paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 						rowsPerPageTemplate="25,50,100" lazy="true"
-						draggableColumns="true" resizableColumns="true">
+						draggableColumns="true" resizableColumns="true"
+						selectionMode="single" selection="#{permissionView.selectedPermission}">
 						<f:facet name="header">
 							<p:outputPanel>
 								<p:spacer height="4" />
@@ -56,6 +57,9 @@
 								<p:spacer height="4" />
 							</p:outputPanel>
 						</f:facet>
+						
+						<p:ajax event="rowSelect" update="permission:perDelButton" />
+						<p:ajax event="rowDblselect" update="permission:newPermissionPanel" listener="#{permissionView.onRowDblSelect}" oncomplete="PF('newPermissionDialog').show()"/>
 						<p:column headerText="#{msg['table.permission.header.name']}"
 							sortBy="#{smsUzytkownik.puUzytkownik.login}"
 							filterBy="#{smsUzytkownik.puUzytkownik.login}">
@@ -76,7 +80,16 @@
 						showEffect="fade" widgetVar="newPermissionDialog" modal="true"
 						resizable="false">
 						<p:outputPanel id="newPermissionPanel">
-							<div class="ui-g ui-fluid">
+						<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-6" layout="grid" styleClass="ui-fluid card">
+                    <p:outputLabel for="perName" value="#{msg['permission.name']}:"/>
+                    <p:inputText id="perName" value="#{permissionView.perName}" required="true" requiredMessage="#{msg['required.empty']}" />
+  					
+
+                    <p:outputLabel value="#{msg['permission.component']}:" for="perComp" />
+                    <p:inputText id="perComp" value="#{permissionView.perComp}"	required="true" requiredMessage="#{msg['required.empty']}"/>
+					
+                    </p:panelGrid>
+							<!-- div class="ui-g ui-fluid">
 								<div class="ui-g-12">
 									<p:outputLabel value="#{msg['permission.name']}:" for="perName" />
 								</div>
@@ -98,7 +111,7 @@
 									<p:message id="perCompMsg" for="perComp" />
 								</div>
 
-							</div>
+							</div-->
 							<p:separator />
 							<div id="save-buttons" class="hidden-sm hidden-xs">
 								<p:commandButton icon="fa fa-plus" value="#{msg['button.save']}"
