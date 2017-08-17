@@ -6,17 +6,19 @@ import java.util.Map;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.jfeesoft.kindergarten.model.Permission;
-
-import lombok.val;
+import com.jfeesoft.kindergarten.service.PermissionService;
 
 @Component
 public class PermissionLazyDataModel extends LazyDataModel<Permission> {
 
 	private static final long serialVersionUID = 1L;
-	// private ArrayList<Permission> permissions = new ArrayList<Permission>();
+
+	@Autowired
+	private PermissionService permissionService;
 
 	public Permission getRowData(String rowKey) {
 		return ((ArrayList<Permission>) this.getWrappedData()).get(Integer.parseInt(rowKey));
@@ -29,10 +31,9 @@ public class PermissionLazyDataModel extends LazyDataModel<Permission> {
 
 	public List<Permission> load(int first, int pageSize, String sortField, SortOrder sortOrder,
 			Map<String, Object> filters) {
-		val permissions = new ArrayList<Permission>();
-		permissions.add(new Permission(0, "NAME", "COMP_NAME"));
-		permissions.add(new Permission(1, "NAME2", "COMP_NAME2"));
-		this.setRowCount(permissions.size());
+		List<Permission> permissions = permissionService.load(first, pageSize, sortField, null, filters);
+		Long count = permissionService.countPermissionRepositoryFilter(filters);
+		this.setRowCount(count.intValue());
 		this.setWrappedData(permissions);
 		return permissions;
 	}

@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -16,31 +15,31 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.data.domain.Sort.Direction;
 
-import com.jfeesoft.kindergarten.model.SystemUser;
+import com.jfeesoft.kindergarten.model.Permission;
 
-public class SystemUserRepositoryImpl implements SystemUserRepositoryCustom {
+public class PermissionRepositoryImpl implements PermissionRepositoryCustom {
 
 	@PersistenceContext
 	private EntityManager em;
 
 	@Override
-	public Long countUserRepositoryFilter(Map<String, Object> filters) {
+	public Long countPermissionRepositoryFilter(Map<String, Object> filters) {
 		Session session = em.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(SystemUser.class, "historia");
+		Criteria criteria = session.createCriteria(Permission.class, "permission");
 
-		createQuery(criteria);
+		// createQuery(criteria);
 		addWhereCriteria(criteria, filters);
 
-		criteria.setProjection(Projections.countDistinct("historia.id"));
+		criteria.setProjection(Projections.countDistinct("permission.id"));
 		return (Long) criteria.uniqueResult();
 	}
 
 	@Override
-	public List<SystemUser> findUserRepositorySortFilterPage(int first, int pageSize, String sortField,
+	public List<Permission> findPermissionRepositorySortFilterPage(int first, int pageSize, String sortField,
 			Direction sortOrder, Map<String, Object> filters) {
 		Session session = em.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(SystemUser.class, "sysUser");
-		createQuery(criteria);
+		Criteria criteria = session.createCriteria(Permission.class, "permission");
+		// createQuery(criteria);
 		addWhereCriteria(criteria, filters);
 
 		if (sortField != null && sortOrder != null) {
@@ -50,7 +49,7 @@ public class SystemUserRepositoryImpl implements SystemUserRepositoryCustom {
 				criteria.addOrder(Order.desc(sortField));
 			}
 		} else {
-			criteria.addOrder(Order.desc("historia.data"));
+			criteria.addOrder(Order.desc("permission.id"));
 		}
 		criteria.setFirstResult(first);
 		criteria.setMaxResults(pageSize);
@@ -58,15 +57,16 @@ public class SystemUserRepositoryImpl implements SystemUserRepositoryCustom {
 		return criteria.list();
 	}
 
-	private void createQuery(Criteria criteria) {
-		criteria.setFetchMode("smsUzytkownik", FetchMode.JOIN);
-		criteria.setFetchMode("smsStatus", FetchMode.JOIN);
-		criteria.setFetchMode("smsUzytkownik.puUzytkownik", FetchMode.JOIN);
-		criteria.createAlias("smsUzytkownik.puUzytkownik", "puUzytkownik");
-		criteria.createAlias("smsStatus", "smsStatus");
-		criteria.createAlias("smsUzytkownik", "smsUzytkownik");
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-	}
+	/*
+	 * private void createQuery(Criteria criteria) {
+	 * criteria.setFetchMode("smsUzytkownik", FetchMode.JOIN);
+	 * criteria.setFetchMode("smsStatus", FetchMode.JOIN);
+	 * criteria.setFetchMode("smsUzytkownik.puUzytkownik", FetchMode.JOIN);
+	 * criteria.createAlias("smsUzytkownik.puUzytkownik", "puUzytkownik");
+	 * criteria.createAlias("smsStatus", "smsStatus");
+	 * criteria.createAlias("smsUzytkownik", "smsUzytkownik");
+	 * criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY); }
+	 */
 
 	private void addWhereCriteria(Criteria criteria, Map<String, Object> filters) {
 		if (filters != null && !filters.isEmpty()) {

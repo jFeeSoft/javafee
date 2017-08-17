@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.jfeesoft.kindergarten.model.Permission;
+import com.jfeesoft.kindergarten.service.PermissionService;
 import com.jfeesoft.kindergarten.view.utils.Utils;
 
 import lombok.Getter;
@@ -42,6 +43,9 @@ public class PermissionView implements Serializable {
 	@Setter
 	private Permission selectedPermission;
 
+	@Autowired
+	private PermissionService permissionService;
+
 	public void permissionEdit(RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Document Edited", ((TreeNode) event.getObject()).toString());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -53,7 +57,8 @@ public class PermissionView implements Serializable {
 	}
 
 	public void delete() {
-		Utils.addDetailMessage("Permission deleted");
+		// permissionService.delete(selectedPermission);
+		Utils.addDetailMessage("Permission deleted", FacesMessage.SEVERITY_INFO);
 	}
 
 	public void onRowDblSelect(SelectEvent event) {
@@ -68,6 +73,7 @@ public class PermissionView implements Serializable {
 	}
 
 	public void save() {
+		// permissionService.save(new Permission(null, perName, perComp));
 		Utils.addDetailMessage("Nowe uprawnienie dodane " + perName + ", " + perComp, FacesMessage.SEVERITY_INFO);
 		clear();
 	}

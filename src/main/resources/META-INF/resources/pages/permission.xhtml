@@ -112,7 +112,7 @@
 							<div id="save-buttons" class="hidden-sm hidden-xs">
 								<p:commandButton icon="fa fa-plus" value="#{msg['button.save']}"
 									styleClass="btn-danger btn-primary"
-									process="newPermissionPanel" update="newPermissionPanel"
+									process="newPermissionPanel" update="permission:permissionTable"
 									actionListener="#{permissionView.save}"
 									oncomplete="if (args &amp;&amp; !args.validationFailed) PF('newPermissionDialog').hide()" />
 								<p:spacer width="10" />
