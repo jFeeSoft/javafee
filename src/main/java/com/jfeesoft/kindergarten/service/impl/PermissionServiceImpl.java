@@ -1,4 +1,4 @@
-package com.jfeesoft.kindergarten.service;
+package com.jfeesoft.kindergarten.service.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jfeesoft.kindergarten.model.Permission;
 import com.jfeesoft.kindergarten.repository.PermissionRepository;
+import com.jfeesoft.kindergarten.service.PermissionService;
 
 @Component
 @Transactional

@@ -1,4 +1,4 @@
-package com.jfeesoft.kindergarten.repository;
+package com.jfeesoft.kindergarten.repository.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -17,28 +17,35 @@ import org.springframework.data.domain.Sort.Direction;
 
 import com.jfeesoft.kindergarten.model.Permission;
 
-public class PermissionRepositoryImpl implements PermissionRepositoryCustom {
+public abstract class GenericRepositoryImpl {
+
+	private final String criteriaAlias;
+	private final String criteriaAliasId;
+
+	public GenericRepositoryImpl(String criteriaAlias) {
+		super();
+		this.criteriaAlias = criteriaAlias;
+		this.criteriaAliasId = criteriaAlias + ".id";
+	}
 
 	@PersistenceContext
 	private EntityManager em;
 
-	@Override
 	public Long countPermissionRepositoryFilter(Map<String, Object> filters) {
 		Session session = em.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(Permission.class, "permission");
+		Criteria criteria = session.createCriteria(Permission.class, criteriaAlias);
 
 		// createQuery(criteria);
 		addWhereCriteria(criteria, filters);
 
-		criteria.setProjection(Projections.countDistinct("permission.id"));
+		criteria.setProjection(Projections.countDistinct(criteriaAliasId));
 		return (Long) criteria.uniqueResult();
 	}
 
-	@Override
 	public List<Permission> findPermissionRepositorySortFilterPage(int first, int pageSize, String sortField,
 			Direction sortOrder, Map<String, Object> filters) {
 		Session session = em.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(Permission.class, "permission");
+		Criteria criteria = session.createCriteria(Permission.class, criteriaAlias);
 		// createQuery(criteria);
 		addWhereCriteria(criteria, filters);
 
@@ -49,7 +56,7 @@ public class PermissionRepositoryImpl implements PermissionRepositoryCustom {
 				criteria.addOrder(Order.desc(sortField));
 			}
 		} else {
-			criteria.addOrder(Order.desc("permission.id"));
+			criteria.addOrder(Order.desc(criteriaAliasId));
 		}
 		criteria.setFirstResult(first);
 		criteria.setMaxResults(pageSize);

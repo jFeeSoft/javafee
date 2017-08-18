@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "permission")
-@SequenceGenerator(name = "seq_permission", sequenceName = "seq_permission", allocationSize = 1)
+@SequenceGenerator(name = "seq_permission", sequenceName = "seq_permission", allocationSize = 1, initialValue = 100)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

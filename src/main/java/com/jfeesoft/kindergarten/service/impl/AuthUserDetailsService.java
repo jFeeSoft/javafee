@@ -1,4 +1,4 @@
-package com.jfeesoft.kindergarten.service;
+package com.jfeesoft.kindergarten.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;

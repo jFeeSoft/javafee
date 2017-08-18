@@ -36,7 +36,7 @@
 						<p:spacer width="10" />
 						<p:commandButton id="perDelButton" value="#{msg['button.delete']}"
 							icon="fa fa-trash" styleClass="btn-danger"
-							actionListener="#{permissionView.clear}"
+							actionListener="#{permissionView.delete}"
 							disabled="#{permissionView.selectedPermission eq null or empty permissionView.selectedPermission}"
 							update="permissionTable" />
 
@@ -67,14 +67,14 @@
 							listener="#{permissionView.onRowDblSelect}"
 							oncomplete="PF('newPermissionDialog').show()" />
 						<p:column headerText="#{msg['table.permission.header.name']}"
-							sortBy="#{smsUzytkownik.puUzytkownik.login}"
-							filterBy="#{smsUzytkownik.puUzytkownik.login}">
+							sortBy="#{permission.name}"
+							filterBy="#{permission.name}">
 							<h:outputText value="#{permission.name}" />
 							<p:spacer height="2" />
 						</p:column>
 						<p:column headerText="#{msg['table.permission.header.component']}"
-							sortBy="#{smsUzytkownik.puUzytkownik.nazwa}"
-							filterBy="#{smsUzytkownik.puUzytkownik.nazwa}">
+							sortBy="#{permission.component}"
+							filterBy="#{permission.component}">
 							<h:outputText value="#{permission.component}" />
 						</p:column>
 

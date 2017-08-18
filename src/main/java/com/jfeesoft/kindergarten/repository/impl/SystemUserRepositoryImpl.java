@@ -1,4 +1,4 @@
-package com.jfeesoft.kindergarten.repository;
+package com.jfeesoft.kindergarten.repository.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +17,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.jfeesoft.kindergarten.model.SystemUser;
+import com.jfeesoft.kindergarten.repository.SystemUserRepositoryCustom;
 
 public class SystemUserRepositoryImpl implements SystemUserRepositoryCustom {
 

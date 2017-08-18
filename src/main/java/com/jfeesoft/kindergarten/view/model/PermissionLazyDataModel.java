@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.jfeesoft.kindergarten.model.Permission;
 import com.jfeesoft.kindergarten.service.PermissionService;
+import com.jfeesoft.kindergarten.view.utils.ProperSortOrder;
 
 @Component
 public class PermissionLazyDataModel extends LazyDataModel<Permission> {
@@ -20,6 +21,7 @@ public class PermissionLazyDataModel extends LazyDataModel<Permission> {
 	@Autowired
 	private PermissionService permissionService;
 
+	@SuppressWarnings("unchecked")
 	public Permission getRowData(String rowKey) {
 		return ((ArrayList<Permission>) this.getWrappedData()).get(Integer.parseInt(rowKey));
 	}
@@ -31,7 +33,8 @@ public class PermissionLazyDataModel extends LazyDataModel<Permission> {
 
 	public List<Permission> load(int first, int pageSize, String sortField, SortOrder sortOrder,
 			Map<String, Object> filters) {
-		List<Permission> permissions = permissionService.load(first, pageSize, sortField, null, filters);
+		List<Permission> permissions = permissionService.load(first, pageSize, sortField,
+				ProperSortOrder.getDirection(sortOrder), filters);
 		Long count = permissionService.countPermissionRepositoryFilter(filters);
 		this.setRowCount(count.intValue());
 		this.setWrappedData(permissions);

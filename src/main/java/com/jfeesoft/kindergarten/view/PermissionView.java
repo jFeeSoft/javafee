@@ -57,7 +57,7 @@ public class PermissionView implements Serializable {
 	}
 
 	public void delete() {
-		// permissionService.delete(selectedPermission);
+		permissionService.delete(selectedPermission);
 		Utils.addDetailMessage("Permission deleted", FacesMessage.SEVERITY_INFO);
 	}
 
@@ -73,7 +73,8 @@ public class PermissionView implements Serializable {
 	}
 
 	public void save() {
-		// permissionService.save(new Permission(null, perName, perComp));
+		Permission newPermission = new Permission(null, perName, perComp);
+		newPermission = permissionService.save(newPermission);
 		Utils.addDetailMessage("Nowe uprawnienie dodane " + perName + ", " + perComp, FacesMessage.SEVERITY_INFO);
 		clear();
 	}

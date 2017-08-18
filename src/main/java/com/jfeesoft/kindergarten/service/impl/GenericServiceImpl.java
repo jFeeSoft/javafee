@@ -1,8 +1,10 @@
-package com.jfeesoft.kindergarten.service;
+package com.jfeesoft.kindergarten.service.impl;
 
 import java.io.Serializable;
 
 import org.springframework.data.repository.CrudRepository;
+
+import com.jfeesoft.kindergarten.service.GenericService;
 
 public abstract class GenericServiceImpl<T, K extends Serializable> implements GenericService<T, K> {
 	protected CrudRepository<T, K> repository;

@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.jfeesoft.kindergarten.service.AuthUserDetailsService;
+import com.jfeesoft.kindergarten.service.impl.AuthUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -26,8 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		http.csrf().disable();
 
-		http.authorizeRequests().antMatchers("/javax.faces.resource/**").permitAll().antMatchers("/pages/**")
-				.access("hasAuthority('PERM_LOGIN')");
+		http.authorizeRequests().antMatchers("/javax.faces.resource/**").permitAll();// .antMatchers("/pages/**").access("hasAuthority('PERM_LOGIN')");
 
 		http.formLogin().loginPage("/login.xhtml").loginProcessingUrl("/appLogin").usernameParameter("app_username")
 				.passwordParameter("app_password").defaultSuccessUrl("/pages/index.xhtml");
