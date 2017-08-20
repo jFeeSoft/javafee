@@ -1,58 +1,58 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
     <changeSet author="Tomek (generated)" id="1502654087101-1">
-        <createSequence sequenceName="seq_address"/>
+        <createSequence sequenceName="seq_address" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-2">
-        <createSequence sequenceName="seq_calendar"/>
+        <createSequence sequenceName="seq_calendar" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-3">
-        <createSequence sequenceName="seq_child"/>
+        <createSequence sequenceName="seq_child" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-4">
-        <createSequence sequenceName="seq_city"/>
+        <createSequence sequenceName="seq_city" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-5">
-        <createSequence sequenceName="seq_event"/>
+        <createSequence sequenceName="seq_event" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-6">
-        <createSequence sequenceName="seq_group"/>
+        <createSequence sequenceName="seq_group" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-7">
-        <createSequence sequenceName="seq_group_type"/>
+        <createSequence sequenceName="seq_group_type" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-8">
-        <createSequence sequenceName="seq_language"/>
+        <createSequence sequenceName="seq_language" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-9">
-        <createSequence sequenceName="seq_meal"/>
+        <createSequence sequenceName="seq_meal" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-10">
-        <createSequence sequenceName="seq_meal_type"/>
+        <createSequence sequenceName="seq_meal_type" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-11">
-        <createSequence sequenceName="seq_message"/>
+        <createSequence sequenceName="seq_message" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-12">
-        <createSequence sequenceName="seq_message_group"/>
+        <createSequence sequenceName="seq_message_group" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-13">
-        <createSequence sequenceName="seq_message_recipient"/>
+        <createSequence sequenceName="seq_message_recipient" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-14">
-        <createSequence sequenceName="seq_organisation"/>
+        <createSequence sequenceName="seq_organisation" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-15">
-        <createSequence sequenceName="seq_permission"/>
+        <createSequence sequenceName="seq_permission" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-16">
-        <createSequence sequenceName="seq_role"/>
+        <createSequence sequenceName="seq_role" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-17">
-        <createSequence sequenceName="seq_system_data"/>
+        <createSequence sequenceName="seq_system_data" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-18">
-        <createSequence sequenceName="seq_system_user"/>
+        <createSequence sequenceName="seq_system_user" startValue="100"/>
     </changeSet>
     <changeSet author="Tomek (generated)" id="1502654087101-19">
         <createTable tableName="address">

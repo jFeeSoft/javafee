@@ -3,12 +3,10 @@ package com.jfeesoft.kindergarten.view;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
-import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -46,17 +44,7 @@ public class PermissionView implements Serializable {
 	@Autowired
 	private PermissionService permissionService;
 
-	public void permissionEdit(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Document Edited", ((TreeNode) event.getObject()).toString());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	public void permissionEditCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Edit Cancelled", ((TreeNode) event.getObject()).toString());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	public void delete() {
+	public void delete(ActionEvent actionEvent) {
 		permissionService.delete(selectedPermission);
 		Utils.addDetailMessage("Permission deleted", FacesMessage.SEVERITY_INFO);
 	}
@@ -67,16 +55,16 @@ public class PermissionView implements Serializable {
 		perComp = permision.getComponent();
 	}
 
-	public void clear() {
+	public void clear(ActionEvent actionEvent) {
 		perName = null;
 		perComp = null;
 	}
 
-	public void save() {
+	public void save(ActionEvent actionEvent) {
 		Permission newPermission = new Permission(null, perName, perComp);
 		newPermission = permissionService.save(newPermission);
 		Utils.addDetailMessage("Nowe uprawnienie dodane " + perName + ", " + perComp, FacesMessage.SEVERITY_INFO);
-		clear();
+		clear(null);
 	}
 
 }

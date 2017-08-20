@@ -23,7 +23,13 @@ public class PermissionLazyDataModel extends LazyDataModel<Permission> {
 
 	@SuppressWarnings("unchecked")
 	public Permission getRowData(String rowKey) {
-		return ((ArrayList<Permission>) this.getWrappedData()).get(Integer.parseInt(rowKey));
+		ArrayList<Permission> permissions = ((ArrayList<Permission>) this.getWrappedData());
+		for (Permission permission : permissions) {
+			if (permission.getId().intValue() == Integer.parseInt(rowKey)) {
+				return permission;
+			}
+		}
+		return null;
 	}
 
 	@Override
