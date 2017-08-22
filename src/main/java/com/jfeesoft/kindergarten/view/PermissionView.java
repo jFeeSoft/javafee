@@ -3,9 +3,7 @@ package com.jfeesoft.kindergarten.view;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.event.ActionEvent;
 
-import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -20,7 +18,7 @@ import lombok.Setter;
 
 @Component("permissionView")
 @Scope("view")
-public class PermissionView implements Serializable {
+public class PermissionView extends GenericView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,40 +29,27 @@ public class PermissionView implements Serializable {
 
 	@Getter
 	@Setter
-	private String perName;
-
-	@Getter
-	@Setter
-	private String perComp;
-
-	@Getter
-	@Setter
-	private Permission selectedPermission;
+	private Permission newPermission;
 
 	@Autowired
 	private PermissionService permissionService;
 
-	public void delete(ActionEvent actionEvent) {
-		permissionService.delete(selectedPermission);
-		Utils.addDetailMessage("Permission deleted", FacesMessage.SEVERITY_INFO);
+	public void add() {
+		newPermission = new Permission();
 	}
 
-	public void onRowDblSelect(SelectEvent event) {
-		Permission permision = ((Permission) event.getObject());
-		perName = permision.getName();
-		perComp = permision.getComponent();
+	public void edit(Permission entity) {
+		newPermission = entity;
 	}
 
-	public void clear(ActionEvent actionEvent) {
-		perName = null;
-		perComp = null;
+	public void delete(Permission entity) {
+		permissionService.delete(entity);
+		Utils.addDetailMessage(messagesBundle.getString("permission.info.delete"), FacesMessage.SEVERITY_INFO);
 	}
 
-	public void save(ActionEvent actionEvent) {
-		Permission newPermission = new Permission(null, perName, perComp);
+	public void save() {
 		newPermission = permissionService.save(newPermission);
-		Utils.addDetailMessage("Nowe uprawnienie dodane " + perName + ", " + perComp, FacesMessage.SEVERITY_INFO);
-		clear(null);
+		Utils.addDetailMessage(messagesBundle.getString("permission.info.edit"), FacesMessage.SEVERITY_INFO);
 	}
 
 }
