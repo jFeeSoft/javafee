@@ -41,7 +41,7 @@ public class PermissionLazyDataModel extends LazyDataModel<Permission> {
 			Map<String, Object> filters) {
 		List<Permission> permissions = permissionService.load(first, pageSize, sortField,
 				ProperSortOrder.getDirection(sortOrder), filters);
-		Long count = permissionService.countPermissionRepositoryFilter(filters);
+		Long count = permissionService.countRepositoryFilter(filters);
 		this.setRowCount(count.intValue());
 		this.setWrappedData(permissions);
 		return permissions;

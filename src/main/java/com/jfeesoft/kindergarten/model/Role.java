@@ -14,6 +14,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.util.StringUtils;
 
 @Entity
 @SequenceGenerator(name = "seq_role", sequenceName = "seq_role", allocationSize = 1)
@@ -67,6 +70,16 @@ public class Role {
 
 	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
+	}
+
+	@Transient
+	public String getPermissionsStr() {
+		return StringUtils.collectionToCommaDelimitedString(permissions);
+	}
+
+	@Transient
+	public void setPermissionsStr(String permissionStr) {
+
 	}
 
 }

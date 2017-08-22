@@ -15,25 +15,25 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.data.domain.Sort.Direction;
 
-import com.jfeesoft.kindergarten.model.Permission;
-
-public abstract class GenericRepositoryImpl {
+public abstract class GenericRepositoryImpl<T> {
 
 	private final String criteriaAlias;
 	private final String criteriaAliasId;
+	private final Class<T> typeParameterClass;
 
-	public GenericRepositoryImpl(String criteriaAlias) {
+	public GenericRepositoryImpl(String criteriaAlias, Class<T> typeParameterClass) {
 		super();
 		this.criteriaAlias = criteriaAlias;
 		this.criteriaAliasId = criteriaAlias + ".id";
+		this.typeParameterClass = typeParameterClass;
 	}
 
 	@PersistenceContext
 	private EntityManager em;
 
-	public Long countPermissionRepositoryFilter(Map<String, Object> filters) {
+	public Long countRepositoryFilter(Map<String, Object> filters) {
 		Session session = em.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(Permission.class, criteriaAlias);
+		Criteria criteria = session.createCriteria(typeParameterClass, criteriaAlias);
 
 		// createQuery(criteria);
 		addWhereCriteria(criteria, filters);
@@ -42,10 +42,10 @@ public abstract class GenericRepositoryImpl {
 		return (Long) criteria.uniqueResult();
 	}
 
-	public List<Permission> findPermissionRepositorySortFilterPage(int first, int pageSize, String sortField,
-			Direction sortOrder, Map<String, Object> filters) {
+	public List<T> findRepositorySortFilterPage(int first, int pageSize, String sortField, Direction sortOrder,
+			Map<String, Object> filters) {
 		Session session = em.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(Permission.class, criteriaAlias);
+		Criteria criteria = session.createCriteria(typeParameterClass, criteriaAlias);
 		// createQuery(criteria);
 		addWhereCriteria(criteria, filters);
 

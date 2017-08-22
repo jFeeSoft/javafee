@@ -25,12 +25,12 @@ public class PermissionServiceImpl extends GenericServiceImpl<Permission, Intege
 	@Override
 	public List<Permission> load(int first, int pageSize, String sortField, Direction sortOrder,
 			Map<String, Object> filters) {
-		return ((PermissionRepository) repository).findPermissionRepositorySortFilterPage(first, pageSize, sortField,
-				sortOrder, filters);
+		return ((PermissionRepository) repository).findRepositorySortFilterPage(first, pageSize, sortField, sortOrder,
+				filters);
 	}
 
 	@Override
-	public Long countPermissionRepositoryFilter(Map<String, Object> filters) {
-		return ((PermissionRepository) repository).countPermissionRepositoryFilter(filters);
+	public Long countRepositoryFilter(Map<String, Object> filters) {
+		return ((PermissionRepository) repository).countRepositoryFilter(filters);
 	}
 }
