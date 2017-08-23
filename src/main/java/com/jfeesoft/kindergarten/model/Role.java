@@ -2,6 +2,7 @@ package com.jfeesoft.kindergarten.model;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +16,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import org.springframework.util.StringUtils;
 
 @Entity
 @SequenceGenerator(name = "seq_role", sequenceName = "seq_role", allocationSize = 1)
@@ -74,12 +73,7 @@ public class Role {
 
 	@Transient
 	public String getPermissionsStr() {
-		return StringUtils.collectionToCommaDelimitedString(permissions);
-	}
-
-	@Transient
-	public void setPermissionsStr(String permissionStr) {
-
+		return permissions.stream().map(e -> e.getName()).collect(Collectors.joining(", "));
 	}
 
 }

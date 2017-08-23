@@ -35,7 +35,7 @@ public abstract class GenericRepositoryImpl<T> {
 		Session session = em.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(typeParameterClass, criteriaAlias);
 
-		// createQuery(criteria);
+		createQuery(criteria);
 		addWhereCriteria(criteria, filters);
 
 		criteria.setProjection(Projections.countDistinct(criteriaAliasId));
@@ -46,7 +46,7 @@ public abstract class GenericRepositoryImpl<T> {
 			Map<String, Object> filters) {
 		Session session = em.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(typeParameterClass, criteriaAlias);
-		// createQuery(criteria);
+		createQuery(criteria);
 		addWhereCriteria(criteria, filters);
 
 		if (sortField != null && sortOrder != null) {
@@ -63,6 +63,8 @@ public abstract class GenericRepositoryImpl<T> {
 
 		return criteria.list();
 	}
+
+	abstract void createQuery(Criteria criteria);
 
 	/*
 	 * private void createQuery(Criteria criteria) {

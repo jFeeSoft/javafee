@@ -21,4 +21,7 @@ public abstract class GenericServiceImpl<T, K extends Serializable> implements G
 		repository.delete(entity);
 	}
 
+	public Iterable<T> findAll() {
+		return repository.findAll();
+	}
 }

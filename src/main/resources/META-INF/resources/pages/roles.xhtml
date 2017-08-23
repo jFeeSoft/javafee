@@ -39,7 +39,7 @@
 							<h:outputText value="#{role.name}" />
 							<p:spacer height="2" />
 						</p:column>
-						<p:column headerText="#{msg['role.table.header.component']}"
+						<p:column headerText="#{msg['role.table.header.permission']}"
 							sortBy="#{role.component}"
 							filterBy="#{role.component}">
 							<h:outputText value="#{role.permissionsStr}" />
@@ -79,17 +79,18 @@
 										requiredMessage="#{msg['required.empty']}" />
 									<p:message id="roleNameMsg" for="roleName" />
 								</div>
-								<div class="form-group">
-									<p:outputLabel value="#{msg['role.table.header.component']}:"
-										for="rolePermissionStr" />
+								
+									<p:outputLabel value="#{msg['role.table.header.permission']}:"
+										for="rolePickList" />
+									<p:pickList id="rolePickList" value="#{roleView.permissions}"
+										var="permission" itemLabel="#{permission.name}"
+										itemValue="#{permission}" converter="#{permissionConverter}">
+											<f:facet name="sourceCaption">#{msg['role.permission.available']}</f:facet>
+        									<f:facet name="targetCaption">#{msg['role.permission.choose']}</f:facet>
+        									
+									</p:pickList>
 
-									<p:inputText id="rolePermissionStr" class="form-control"
-										value="#{roleView.newRole.permissionsStr}"
-										required="true" requiredMessage="#{msg['required.empty']}" />
-
-									<p:message id="rolePermissionMsg" for="rolePermissionStr" />
-
-								</div>
+								
 
 							</div>
 
