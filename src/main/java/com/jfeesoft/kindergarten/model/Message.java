@@ -2,11 +2,9 @@ package com.jfeesoft.kindergarten.model;
 
 import java.util.Date;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -16,49 +14,40 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "message")
-@SequenceGenerator(name = "seq_message", sequenceName = "seq_message", initialValue = 1, allocationSize = 1)
-public class Message {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_message")
-	@Column(name = "message_id")
-	private Integer id;
-	
+@AttributeOverride(name = "id", column = @Column(name = "message_id", nullable = false))
+@SequenceGenerator(name = "default_gen", sequenceName = "message_seq", allocationSize = 1, initialValue = 100)
+public class Message extends GenericEntity {
+
+	private static final long serialVersionUID = 1L;
+
 	@OneToOne
 	@JoinColumn(name = "system_user_id")
 	private SystemUser sender;
-	
+
 	@Column(name = "title", length = 64)
 	private String title;
-	
+
 	@Column(name = "content", length = 1024)
 	private String content;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "send_date", nullable = false, length = 64)
 	private Date sendDate;
-	
+
 	@Column(name = "status", nullable = false, length = 2)
 	private Integer status;
-	
+
 	@Column(name = "is_priority")
 	private Boolean isPriority;
 
 	@Column(name = "is_send", nullable = false)
 	private Boolean isSend;
-	
+
 	@Column(name = "is_read")
 	private Boolean isRead;
-	
+
 	@Column(name = "send_attempt_count", length = 2)
 	private Integer sendAttemptCount;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public SystemUser getSender() {
 		return sender;

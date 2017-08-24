@@ -1,35 +1,24 @@
 package com.jfeesoft.kindergarten.model;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "city")
-@SequenceGenerator(name = "seq_city", sequenceName = "seq_city", initialValue = 1, allocationSize = 1)
-public class City {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_city")
-	@Column(name = "city_id")
-	private Integer id;
+@AttributeOverride(name = "id", column = @Column(name = "city_id", nullable = false))
+@SequenceGenerator(name = "default_gen", sequenceName = "city_seq", allocationSize = 1, initialValue = 100)
+public class City extends GenericEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "name", length = 64)
 	private String name;
 
 	@Column(name = "postal_code", length = 6)
 	private String postalCode;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

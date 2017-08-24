@@ -3,13 +3,11 @@ package com.jfeesoft.kindergarten.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -18,36 +16,27 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "address")
-@SequenceGenerator(name = "seq_address", sequenceName = "seq_address", initialValue = 1, allocationSize = 1)
-public class Address {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_address")
-	@Column(name = "address_id")
-	private Integer id;
-	
+@AttributeOverride(name = "id", column = @Column(name = "address_id", nullable = false))
+@SequenceGenerator(name = "default_gen", sequenceName = "address_seq", allocationSize = 1, initialValue = 100)
+public class Address extends GenericEntity {
+
+	private static final long serialVersionUID = 1L;
+
 	@Column(name = "street", length = 128)
 	private String street;
-	
+
 	@Column(name = "house_number", length = 16)
 	private String houseNumber;
-	
+
 	@Column(name = "local_number", length = 16)
 	private String localNumber;
-	
+
 	@OneToOne
 	@JoinColumn(name = "city_id")
 	private City city;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "address")
 	private Set<SystemUser> systemUsers = new HashSet<>(0);
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getStreet() {
 		return street;

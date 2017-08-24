@@ -1,11 +1,9 @@
 package com.jfeesoft.kindergarten.model;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
@@ -13,12 +11,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "meal")
-@SequenceGenerator(name = "seq_meal", sequenceName = "seq_meal", initialValue = 1, allocationSize = 1)
-public class Meal {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_meal")
-	@Column(name = "meal_id")
-	private Integer id;
+@AttributeOverride(name = "id", column = @Column(name = "meal_id", nullable = false))
+@SequenceGenerator(name = "default_gen", sequenceName = "meal_seq", allocationSize = 1, initialValue = 100)
+public class Meal extends GenericEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "description", length = 256)
 	private String description;
@@ -26,14 +23,6 @@ public class Meal {
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "meal_type_id")
 	private MealType type;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getDescription() {
 		return description;

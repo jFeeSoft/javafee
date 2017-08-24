@@ -3,25 +3,22 @@ package com.jfeesoft.kindergarten.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "message_group")
-@SequenceGenerator(name = "seq_message_group", sequenceName = "seq_message_group", initialValue = 1, allocationSize = 1)
-public class MessageGroup {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_message_group")
-	@Column(name = "message_group_id")
-	private Integer id;
+@AttributeOverride(name = "id", column = @Column(name = "message_group_id", nullable = false))
+@SequenceGenerator(name = "default_gen", sequenceName = "message_group_seq", allocationSize = 1, initialValue = 100)
+public class MessageGroup extends GenericEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "name", nullable = false, length = 64)
 	private String name;
@@ -37,14 +34,6 @@ public class MessageGroup {
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "messageGroup")
 	private Set<MessageRecipient> messageRecipient = new HashSet<>(0);
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

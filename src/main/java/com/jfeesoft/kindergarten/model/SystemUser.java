@@ -4,13 +4,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -20,17 +18,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
-
 @Entity
 @Table(name = "system_user")
-@SequenceGenerator(name = "seq_system_user", sequenceName = "seq_system_user", initialValue = 1, allocationSize = 1)
-@Data
-public class SystemUser {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_system_user")
-	@Column(name = "system_user_id")
-	private Integer id;
+@AttributeOverride(name = "id", column = @Column(name = "system_user_id", nullable = false))
+@SequenceGenerator(name = "default_gen", sequenceName = "system_user_seq", allocationSize = 1, initialValue = 100)
+public class SystemUser extends GenericEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "password", nullable = false, length = 64)
 	private String password;
@@ -100,5 +94,161 @@ public class SystemUser {
 			joinColumns = @JoinColumn(name = "system_user_id"), //
 			inverseJoinColumns = @JoinColumn(name = "child_id"))
 	private Set<Child> children = new HashSet<>(0);
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Integer getPasswordAttemptCount() {
+		return passwordAttemptCount;
+	}
+
+	public void setPasswordAttemptCount(Integer passwordAttemptCount) {
+		this.passwordAttemptCount = passwordAttemptCount;
+	}
+
+	public String getFisrstName() {
+		return fisrstName;
+	}
+
+	public void setFisrstName(String fisrstName) {
+		this.fisrstName = fisrstName;
+	}
+
+	public String getSecondName() {
+		return secondName;
+	}
+
+	public void setSecondName(String secondName) {
+		this.secondName = secondName;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public Character getSex() {
+		return sex;
+	}
+
+	public void setSex(Character sex) {
+		this.sex = sex;
+	}
+
+	public String getPeselNumber() {
+		return peselNumber;
+	}
+
+	public void setPeselNumber(String peselNumber) {
+		this.peselNumber = peselNumber;
+	}
+
+	public String getDocumentNumber() {
+		return documentNumber;
+	}
+
+	public void setDocumentNumber(String documentNumber) {
+		this.documentNumber = documentNumber;
+	}
+
+	public Boolean getRegistered() {
+		return registered;
+	}
+
+	public void setRegistered(Boolean registered) {
+		this.registered = registered;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public Date getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public Set<MessageGroup> getMessageGroups() {
+		return messageGroups;
+	}
+
+	public void setMessageGroups(Set<MessageGroup> messageGroups) {
+		this.messageGroups = messageGroups;
+	}
+
+	public Set<Child> getChildren() {
+		return children;
+	}
+
+	public void setChildren(Set<Child> children) {
+		this.children = children;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }

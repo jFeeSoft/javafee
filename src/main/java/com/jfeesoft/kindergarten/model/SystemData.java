@@ -2,11 +2,9 @@ package com.jfeesoft.kindergarten.model;
 
 import java.util.Date;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -15,18 +13,17 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "system_data", uniqueConstraints = { @UniqueConstraint(columnNames = { "license_number" }) })
-@SequenceGenerator(name = "seq_system_data", sequenceName = "seq_system_data", initialValue = 1, allocationSize = 1)
-public class SystemData {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_system_data")
-	@Column(name = "system_data_id")
-	private Integer id;
+@AttributeOverride(name = "id", column = @Column(name = "system_data_id", nullable = false))
+@SequenceGenerator(name = "default_gen", sequenceName = "system_data_seq", allocationSize = 1, initialValue = 100)
+public class SystemData extends GenericEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "name", length = 64)
 	private String name;
 
-	@Column(name = "version", length = 64)
-	private String version;
+	@Column(name = "app_version", length = 64)
+	private String appVersion;
 
 	@Column(name = "build_number", length = 64)
 	private String buildNumber;
@@ -41,14 +38,6 @@ public class SystemData {
 	@Column(name = "license_number", length = 64)
 	private String licenseNumber;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -57,12 +46,12 @@ public class SystemData {
 		this.name = name;
 	}
 
-	public String getVersion() {
-		return version;
+	public String getAppVersion() {
+		return appVersion;
 	}
 
-	public void setVersion(String version) {
-		this.version = version;
+	public void setAppVersion(String appVersion) {
+		this.appVersion = appVersion;
 	}
 
 	public String getBuildNumber() {

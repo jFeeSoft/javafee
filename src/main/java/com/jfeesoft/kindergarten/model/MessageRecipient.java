@@ -3,13 +3,11 @@ package com.jfeesoft.kindergarten.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -19,12 +17,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "message_recipient")
-@SequenceGenerator(name = "seq_message_recipient", sequenceName = "seq_message_recipient", initialValue = 1, allocationSize = 1)
-public class MessageRecipient {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_message_recipient")
-	@Column(name = "message_recipient_id")
-	private Integer id;
+@AttributeOverride(name = "id", column = @Column(name = "message_recipient_id", nullable = false))
+@SequenceGenerator(name = "default_gen", sequenceName = "message_recipient_seq", allocationSize = 1, initialValue = 100)
+public class MessageRecipient extends GenericEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	@OneToOne
 	@JoinColumn(name = "system_user_id")
@@ -39,14 +36,6 @@ public class MessageRecipient {
 	@OneToOne
 	@JoinColumn(name = "message_id")
 	private Message message;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public SystemUser getSystemUser() {
 		return systemUser;

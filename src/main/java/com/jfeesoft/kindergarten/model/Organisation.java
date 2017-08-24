@@ -3,13 +3,11 @@ package com.jfeesoft.kindergarten.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -20,12 +18,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "organisation")
-@SequenceGenerator(name = "seq_organisation", sequenceName = "seq_organisation", initialValue = 1, allocationSize = 1)
-public class Organisation {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_organisation")
-	@Column(name = "organisation_id")
-	private Integer id;
+@AttributeOverride(name = "id", column = @Column(name = "organisation_id", nullable = false))
+@SequenceGenerator(name = "default_gen", sequenceName = "organisation_seq", allocationSize = 1, initialValue = 100)
+public class Organisation extends GenericEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "name", nullable = false, length = 64)
 	private String name;
@@ -46,14 +43,6 @@ public class Organisation {
 	@OneToOne
 	@JoinColumn(name = "system_data_id")
 	private SystemData systemData;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

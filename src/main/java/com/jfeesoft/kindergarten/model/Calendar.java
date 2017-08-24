@@ -1,27 +1,17 @@
 package com.jfeesoft.kindergarten.model;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "calendar")
-@SequenceGenerator(name = "seq_calendar", sequenceName = "seq_calendar", initialValue = 1, allocationSize = 1)
-public class Calendar {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_calendar")
-	@Column(name = "calendar_id")
-	private Integer id;
+@AttributeOverride(name = "id", column = @Column(name = "calendar_id", nullable = false))
+@SequenceGenerator(name = "default_gen", sequenceName = "calendar_seq", allocationSize = 1, initialValue = 100)
+public class Calendar extends GenericEntity {
 
-	public Integer getId() {
-		return id;
-	}
+	private static final long serialVersionUID = 1L;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
 }
