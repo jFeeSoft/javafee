@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 
 import org.primefaces.model.DualListModel;
-import org.primefaces.model.LazyDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -24,30 +23,22 @@ import lombok.Setter;
 
 @Component("roleView")
 @Scope("view")
-public class RoleView extends GenericView implements Serializable {
+public class RoleView extends GenericView<Role> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Autowired
-	@Getter
-	@Setter
-	private LazyDataModel<Role> roleLazyModel;
 
 	@Getter
 	@Setter
 	private DualListModel<Permission> permissions;
 
-	@Getter
-	@Setter
-	private Role newRole;
-
-	@Autowired
-	private RoleService roleService;
-
 	@Autowired
 	private PermissionService permissionService;
 
 	private List<Permission> permissionSource;
+
+	public RoleView(RoleService genericService) {
+		super(genericService);
+	}
 
 	@PostConstruct
 	public void init() {
@@ -57,7 +48,7 @@ public class RoleView extends GenericView implements Serializable {
 	}
 
 	public void add() {
-		newRole = new Role();
+		newEntity = new Role();
 		permissions.getTarget().clear();
 		permissions.getSource().clear();
 		permissions.getSource().addAll(permissionSource);
@@ -69,18 +60,13 @@ public class RoleView extends GenericView implements Serializable {
 		permissions.getTarget().addAll(entity.getPermissions());
 		permissions.getSource().addAll(permissionSource);
 		permissions.getSource().removeAll(entity.getPermissions());
-		newRole = entity;
-	}
-
-	public void delete(Role entity) {
-		roleService.delete(entity);
-		Utils.addDetailMessage(messagesBundle.getString("role.info.delete"), FacesMessage.SEVERITY_INFO);
+		newEntity = entity;
 	}
 
 	public void save() {
-		newRole.getPermissions().clear();
-		newRole.getPermissions().addAll(permissions.getTarget());
-		newRole = roleService.save(newRole);
+		newEntity.getPermissions().clear();
+		newEntity.getPermissions().addAll(permissions.getTarget());
+		newEntity = (Role) genericSerivice.save(newEntity);
 		Utils.addDetailMessage(messagesBundle.getString("role.info.edit"), FacesMessage.SEVERITY_INFO);
 	}
 

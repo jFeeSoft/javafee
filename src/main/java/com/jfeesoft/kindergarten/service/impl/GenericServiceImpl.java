@@ -1,16 +1,20 @@
 package com.jfeesoft.kindergarten.service.impl;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Sort.Direction;
 
+import com.jfeesoft.kindergarten.repository.GenericRepository;
 import com.jfeesoft.kindergarten.service.GenericService;
 
 public abstract class GenericServiceImpl<T, K extends Serializable> implements GenericService<T, K> {
-	protected CrudRepository<T, K> repository;
 
-	public GenericServiceImpl(CrudRepository<T, K> repository) {
-		this.repository = repository;
+	protected GenericRepository<T, K> repository;
+
+	public GenericServiceImpl(GenericRepository organisationRepository) {
+		this.repository = organisationRepository;
 	}
 
 	public T save(T entity) {
@@ -23,5 +27,13 @@ public abstract class GenericServiceImpl<T, K extends Serializable> implements G
 
 	public Iterable<T> findAll() {
 		return repository.findAll();
+	}
+
+	public Long countRepositoryFilter(Map<String, Object> filters) {
+		return repository.countRepositoryFilter(filters);
+	}
+
+	public List<T> load(int first, int pageSize, String sortField, Direction sortOrder, Map<String, Object> filters) {
+		return repository.findRepositorySortFilterPage(first, pageSize, sortField, sortOrder, filters);
 	}
 }

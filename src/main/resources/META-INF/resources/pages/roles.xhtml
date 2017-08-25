@@ -28,7 +28,7 @@
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<p:dataTable id="roleTable" var="role"
-						value="#{roleView.roleLazyModel}" paginator="true"
+						value="#{roleView.genericLazyModel}" paginator="true"
 						rows="25" widgetVar="roleTable" paginatorPosition="bottom"
 						paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 						rowsPerPageTemplate="25,50,100" lazy="true"
@@ -75,7 +75,7 @@
 
 									<p:outputLabel for="roleName" value="#{msg['role.table.header.name']}:" />
 									<p:inputText id="roleName" class="form-control"
-										value="#{roleView.newRole.name}" required="true"
+										value="#{roleView.newEntity.name}" required="true"
 										requiredMessage="#{msg['required.empty']}" />
 									<p:message id="roleNameMsg" for="roleName" />
 								</div>
