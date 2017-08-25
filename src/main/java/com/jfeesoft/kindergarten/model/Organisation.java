@@ -27,7 +27,7 @@ public class Organisation extends GenericEntity {
 	@Column(name = "name", nullable = false, length = 64)
 	private String name;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_id")
 	private Address address;
 
@@ -43,6 +43,11 @@ public class Organisation extends GenericEntity {
 	@OneToOne
 	@JoinColumn(name = "system_data_id")
 	private SystemData systemData;
+
+	public Organisation() {
+		super();
+		this.address = new Address();
+	}
 
 	public String getName() {
 		return name;

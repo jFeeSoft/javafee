@@ -15,7 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "group")
+@Table(name = "group", schema = "public")
 @AttributeOverride(name = "id", column = @Column(name = "group_id", nullable = false))
 @SequenceGenerator(name = "default_gen", sequenceName = "group_seq", allocationSize = 1, initialValue = 100)
 public class Group extends GenericEntity {
@@ -31,7 +31,7 @@ public class Group extends GenericEntity {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "groups")
 	private Set<Child> child = new HashSet<Child>(0);
 
-	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "group_type_id")
 	private GroupType type;
 

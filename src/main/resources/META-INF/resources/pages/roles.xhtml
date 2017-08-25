@@ -84,7 +84,7 @@
 										for="rolePickList" />
 									<p:pickList id="rolePickList" value="#{roleView.permissions}"
 										var="permission" itemLabel="#{permission.name}"
-										itemValue="#{permission}" converter="#{permissionConverter}">
+										itemValue="#{permission}" converter="#{genericEntityConverter}">
 											<f:facet name="sourceCaption">#{msg['role.permission.available']}</f:facet>
         									<f:facet name="targetCaption">#{msg['role.permission.choose']}</f:facet>
         									

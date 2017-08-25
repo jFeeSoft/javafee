@@ -31,12 +31,17 @@ public class Address extends GenericEntity {
 	@Column(name = "local_number", length = 16)
 	private String localNumber;
 
-	@OneToOne
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "city_id")
 	private City city;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "address")
 	private Set<SystemUser> systemUsers = new HashSet<>(0);
+
+	public Address() {
+		super();
+		this.city = new City();
+	}
 
 	public String getStreet() {
 		return street;

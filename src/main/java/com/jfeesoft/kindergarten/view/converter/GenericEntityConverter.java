@@ -13,11 +13,11 @@ import javax.faces.convert.Converter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.jfeesoft.kindergarten.model.Permission;
+import com.jfeesoft.kindergarten.model.GenericEntity;
 
 @Component
 @Scope("request")
-public class PermissionConverter implements Converter {
+public class GenericEntityConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) {
@@ -35,7 +35,7 @@ public class PermissionConverter implements Converter {
 
 	@Override
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
-		if (arg2 instanceof Permission) {
+		if (arg2 instanceof GenericEntity) {
 			try {
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				ObjectOutputStream oos = new ObjectOutputStream(baos);
